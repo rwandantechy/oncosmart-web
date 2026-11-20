@@ -12,7 +12,15 @@ function fieldValue(record, field) {
   return field.format ? DATE_FORMATTERS[field.format](value) : value;
 }
 
-export default function RecordDetailDrawer({ record, loading, onClose }) {
+export default function RecordDetailDrawer({
+  record,
+  loading,
+  onClose,
+  eyebrow = DETAIL_COPY.eyebrow,
+  issues,
+  issuesHeading,
+  actions,
+}) {
   return (
     <div
       className="record-detail-backdrop"
@@ -27,7 +35,7 @@ export default function RecordDetailDrawer({ record, loading, onClose }) {
       >
         <div className="record-detail-header">
           <div>
-            <p className="eyebrow">{DETAIL_COPY.eyebrow}</p>
+            <p className="eyebrow">{eyebrow}</p>
             <h2 id={DETAIL_COPY.titleId}>
               {withFallback(record.product_name, DETAIL_COPY.missingTitle)}
             </h2>
@@ -48,6 +56,16 @@ export default function RecordDetailDrawer({ record, loading, onClose }) {
             <p className="detail-reason">
               {withFallback(record.reason, DETAIL_COPY.missingReason)}
             </p>
+            {issues?.length ? (
+              <div className="detail-section detail-issues">
+                <h3>{issuesHeading}</h3>
+                <ul className="review-issue-list">
+                  {issues.map((issue) => (
+                    <li key={issue}>{issue}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
             <div className="detail-grid">
               {RECORD_DETAIL_FIELDS.map((field) => (
                 <div className="detail-field" key={field.label}>
@@ -61,17 +79,21 @@ export default function RecordDetailDrawer({ record, loading, onClose }) {
               <p>{withFallback(record.more_info, DETAIL_COPY.missingAdditional)}</p>
             </div>
             <div className="detail-actions">
-              <a
-                className="primary-source-link"
-                href={record.source_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {DETAIL_COPY.sourceLinkLabel} <Icon name="arrowRight" />
-              </a>
-              <button type="button" onClick={onClose}>
-                {DETAIL_COPY.closeButtonLabel}
-              </button>
+              {record.source_url ? (
+                <a
+                  className="primary-source-link"
+                  href={record.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {DETAIL_COPY.sourceLinkLabel} <Icon name="arrowRight" />
+                </a>
+              ) : null}
+              {actions || (
+                <button type="button" onClick={onClose}>
+                  {DETAIL_COPY.closeButtonLabel}
+                </button>
+              )}
             </div>
           </>
         )}

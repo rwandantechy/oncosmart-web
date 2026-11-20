@@ -31,7 +31,10 @@ export const REVIEW = {
   approveLabel: "Approve",
   rejectLabel: "Reject",
   busyLabel: "Updating…",
-  openSourceLabel: "Open original notice",
+  openRecordLabel: "Open record",
+  closeLabel: "Close",
+  detailEyebrow: "Notice under review",
+  issuesHeading: "Needs attention",
   overviewLinkLabel: "Open notice review",
   overviewNote: (total) =>
     `${total} notice${total === 1 ? "" : "s"} waiting for review after the latest collection.`,

@@ -1,14 +1,24 @@
+import { useState } from "react";
 import AdminLayout from "../components/layout/AdminLayout";
 import DataScopeNote from "../components/layout/DataScopeNote";
 import EmptyState from "../components/ui/EmptyState";
 import ErrorBanner from "../components/ui/ErrorBanner";
+import IconButton from "../components/ui/IconButton";
 import { REVIEW } from "../content/review";
 import { WORKSPACE_SECTIONS } from "../content/site";
+import RecordDetailDrawer from "./records/RecordDetailDrawer";
 import ReviewTable from "./review/ReviewTable";
 import useReviewQueue from "./review/useReviewQueue";
 
 export default function ReviewPage() {
   const queue = useReviewQueue();
+  const [selected, setSelected] = useState(null);
+
+  async function runAction(action) {
+    if (!selected) return;
+    const ok = await action(selected.record_id);
+    if (ok) setSelected(null);
+  }
 
   return (
     <AdminLayout
@@ -34,13 +44,42 @@ export default function ReviewPage() {
           <ReviewTable
             items={queue.items}
             loading={queue.loading}
-            busyId={queue.busyId}
-            onApprove={queue.approve}
-            onReject={queue.reject}
+            onOpen={setSelected}
           />
         )}
       </section>
       <DataScopeNote {...REVIEW.scope} />
+      {selected ? (
+        <RecordDetailDrawer
+          record={selected}
+          eyebrow={REVIEW.detailEyebrow}
+          issues={(selected.validation_errors || []).map((issue) => REVIEW.issueLabel(issue))}
+          issuesHeading={REVIEW.issuesHeading}
+          onClose={() => setSelected(null)}
+          actions={
+            <div className="review-detail-actions">
+              <IconButton
+                name="check"
+                label={queue.busyId ? REVIEW.busyLabel : REVIEW.approveLabel}
+                onClick={() => runAction(queue.approve)}
+                disabled={Boolean(queue.busyId)}
+                showLabel
+              />
+              <IconButton
+                name="close"
+                className="icon-action danger"
+                label={queue.busyId ? REVIEW.busyLabel : REVIEW.rejectLabel}
+                onClick={() => runAction(queue.reject)}
+                disabled={Boolean(queue.busyId)}
+                showLabel
+              />
+              <button type="button" onClick={() => setSelected(null)}>
+                {REVIEW.closeLabel}
+              </button>
+            </div>
+          }
+        />
+      ) : null}
     </AdminLayout>
   );
 }

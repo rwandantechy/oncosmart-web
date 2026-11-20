@@ -39,8 +39,10 @@ export default function useReviewQueue() {
       await action(recordId);
       setItems((current) => current.filter((item) => item.record_id !== recordId));
       setTotal((current) => Math.max(0, current - 1));
+      return true;
     } catch (err) {
       setError(err?.message || REVIEW.actionError);
+      return false;
     } finally {
       setBusyId("");
     }

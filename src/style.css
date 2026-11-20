@@ -2640,19 +2640,26 @@ a {
 .review-issue-list li + li {
   margin-top: 0.25rem;
 }
-.review-source-link {
-  color: var(--color-blue);
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  margin-top: 0.35rem;
-  text-decoration: none;
-}
-.review-row-actions {
+.review-detail-actions {
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  width: 100%;
+}
+.detail-issues {
+  background: var(--color-error-surface);
+  border: 1px solid var(--color-error-border);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+}
+.detail-issues h3 {
+  color: var(--color-error-text);
+  font-size: 0.72rem;
+  margin: 0 0 0.45rem;
+}
+.detail-issues .review-issue-list li {
+  color: var(--color-error-text);
 }
 .record-detail-backdrop {
   align-items: stretch;

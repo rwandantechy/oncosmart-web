@@ -23,6 +23,7 @@ export const SITE_NAV = [
 export const WORKSPACE_SECTIONS = {
   overview: "overview",
   assistant: "assistant",
+  review: "review",
   settings: "settings",
   search: "search",
   publicView: "publicView",
@@ -44,6 +45,14 @@ export const WORKSPACE_NAV = [
     compactLabel: "Assistant",
     href: ROUTES.adminAssistant,
     icon: "assistant",
+  },
+  {
+    type: "link",
+    id: WORKSPACE_SECTIONS.review,
+    label: "Notice review",
+    compactLabel: "Review",
+    href: ROUTES.adminReview,
+    icon: "review",
   },
   {
     type: "link",

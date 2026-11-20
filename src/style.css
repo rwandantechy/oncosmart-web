@@ -2569,6 +2569,91 @@ a {
   gap: 0.15rem;
   white-space: nowrap;
 }
+.review-callout {
+  align-items: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-card-soft);
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+}
+.review-callout p {
+  color: var(--color-heading);
+  font-size: 0.84rem;
+  margin: 0;
+}
+.review-callout a {
+  color: var(--color-blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.review-callout a:hover {
+  color: var(--color-heading);
+}
+.review-page {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-card-soft);
+  border-radius: 8px;
+  padding: 1.15rem 1.25rem 1.35rem;
+}
+.review-hero {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.review-hero h2 {
+  color: var(--color-heading);
+  font-size: 1.15rem;
+  margin: 0 0 0.35rem;
+}
+.review-hero p {
+  color: var(--color-text-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 42rem;
+}
+.review-count {
+  color: var(--color-text-action);
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin: 0.2rem 0 0;
+}
+.review-issue-list {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.review-issue-list li {
+  color: var(--color-text-detail);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.review-issue-list li + li {
+  margin-top: 0.25rem;
+}
+.review-source-link {
+  color: var(--color-blue);
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 0.35rem;
+  text-decoration: none;
+}
+.review-row-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+}
 .record-detail-backdrop {
   align-items: stretch;
   background: var(--color-backdrop-navy);

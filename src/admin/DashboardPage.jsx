@@ -3,8 +3,10 @@ import AdminLayout from "../components/layout/AdminLayout";
 import DataScopeNote from "../components/layout/DataScopeNote";
 import ErrorBanner from "../components/ui/ErrorBanner";
 import MetricCard from "../components/ui/MetricCard";
+import { ROUTES } from "../config/routes";
 import { OVERVIEW } from "../content/admin";
 import { FALLBACKS } from "../content/common";
+import { REVIEW } from "../content/review";
 import { WORKSPACE_SECTIONS } from "../content/site";
 import { FRESHNESS_STATUS } from "../services/apiContract";
 import { formatDate } from "../utils/date";
@@ -34,6 +36,12 @@ export default function DashboardPage() {
       warning={OVERVIEW.warning}
     >
       <ErrorBanner message={error || panelError} />
+      {!loading && data.pendingReview > 0 ? (
+        <div className="review-callout" role="status">
+          <p>{REVIEW.overviewNote(data.pendingReview)}</p>
+          <a href={ROUTES.adminReview}>{REVIEW.overviewLinkLabel}</a>
+        </div>
+      ) : null}
       <section className="metric-grid" aria-label={OVERVIEW.metrics.regionLabel} aria-busy={loading}>
         {OVERVIEW.metrics.cards.map((card) => (
           <MetricCard

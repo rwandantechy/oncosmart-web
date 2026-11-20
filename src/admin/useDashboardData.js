@@ -7,6 +7,7 @@ import {
   getSummary,
   getTimeline,
 } from "../services/insightsService";
+import { listPending } from "../services/reviewService";
 import { getDataset } from "../services/statusService";
 
 const EMPTY_DASHBOARD = {
@@ -16,6 +17,7 @@ const EMPTY_DASHBOARD = {
   timeline: { items: [] },
   completeness: [],
   research: null,
+  pendingReview: 0,
 };
 
 const DASHBOARD_OPTIONS = { initialData: EMPTY_DASHBOARD, errorMessage: OVERVIEW.loadError };
@@ -28,13 +30,15 @@ function loadDashboard() {
     getTimeline(),
     getCompleteness(),
     getResearch(),
-  ]).then(([summary, dataset, sources, timeline, completeness, research]) => ({
+    listPending().catch(() => ({ total: 0 })),
+  ]).then(([summary, dataset, sources, timeline, completeness, research, pending]) => ({
     summary,
     dataset,
     sources,
     timeline,
     completeness,
     research,
+    pendingReview: pending?.total || 0,
   }));
 }
 

@@ -1,5 +1,6 @@
 import DashboardPage from "./admin/DashboardPage";
 import ResearchAssistantPage from "./admin/ResearchAssistantPage";
+import ReviewPage from "./admin/ReviewPage";
 import SettingsPage from "./admin/SettingsPage";
 import AuthPage from "./auth/AuthPage";
 import RequireSession from "./auth/RequireSession";
@@ -34,6 +35,7 @@ const PAGE_VIEWS = {
   [PAGES.healthProfessionals]: () => <ContentPage page={PAGES.healthProfessionals} />,
   [PAGES.patients]: () => <ContentPage page={PAGES.patients} />,
   [PAGES.adminAssistant]: () => <ResearchAssistantPage />,
+  [PAGES.adminReview]: () => <ReviewPage />,
   [PAGES.adminSettings]: () => <SettingsPage />,
   [PAGES.adminOverview]: () => <DashboardPage />,
   [PAGES.home]: () => <SearchPage />,

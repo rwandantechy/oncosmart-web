@@ -66,6 +66,7 @@ export default function RecordDetailDrawer({
                 </ul>
               </div>
             ) : null}
+            {actions ? <div className="detail-actions detail-actions-top">{actions}</div> : null}
             <div className="detail-grid">
               {RECORD_DETAIL_FIELDS.map((field) => (
                 <div className="detail-field" key={field.label}>

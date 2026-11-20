@@ -6,14 +6,14 @@ export const REVIEW = {
   compactLabel: "Review",
   warning: {
     strong: "Needs a closer look",
-    text: "These notices did not pass automatic checks. Approve them only after you are satisfied with the record.",
+    text: "These notices passed the oncology product match but failed automatic quality checks. Approve only when the record looks complete and clinically relevant.",
     linkLabel: "About these records",
     href: ANCHORS.dataScope,
   },
   hero: {
     heading: "Notices waiting for review",
     intro:
-      "Each row shows what is missing or unclear. Approving adds the notice to the approved file used by this workspace.",
+      "Product names are matched to the NCI cancer-drug list. Use Approve to publish into the workspace file, or Reject if the notice is incomplete, duplicated, or not useful for oncology practice.",
   },
   loadError: "The review list could not be loaded. Please try again shortly.",
   actionError: "That action could not be completed. Please try again.",
@@ -25,16 +25,28 @@ export const REVIEW = {
     title: "Nothing waiting",
     body: "New notices that fail automatic checks will appear here after the next collection run.",
   },
-  tableHeadings: ["Publication", "Product", "Needs attention", "Reporting regulator"],
+  tableHeadings: [
+    "Publication",
+    "Matched product",
+    "Needs attention",
+    "Country",
+    "Reporting regulator",
+  ],
   missingProduct: "Product not named",
   missingReason: "Reason not provided",
+  missingCountry: "Country not stated",
+  noIssues: "No listed issues — review the full notice before deciding.",
+  actionsHeading: "Actions",
   approveLabel: "Approve",
   rejectLabel: "Reject",
+  refreshLabel: "Refresh list",
   busyLabel: "Updating…",
-  openRecordLabel: "Open record",
+  openRecordLabel: "Open",
   closeLabel: "Close",
   detailEyebrow: "Notice under review",
   issuesHeading: "Needs attention",
+  matchNote:
+    "Matched product names come from the official NCI A–Z cancer-drug list. Confirm the original regulator text still describes that medicine.",
   overviewLinkLabel: "Open notice review",
   overviewNote: (total) =>
     `${total} notice${total === 1 ? "" : "s"} waiting for review after the latest collection.`,
@@ -52,6 +64,6 @@ export const REVIEW = {
     id: "review-scope",
     title: "About these records",
     text:
-      "Approved notices join the file this workspace reads. Rejected notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
+      "Only oncology-matched notices reach this queue. Approved notices join the file this workspace reads. Rejected notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
   },
 };

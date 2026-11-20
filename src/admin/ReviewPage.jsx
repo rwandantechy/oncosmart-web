@@ -7,6 +7,7 @@ import IconButton from "../components/ui/IconButton";
 import { REVIEW } from "../content/review";
 import { WORKSPACE_SECTIONS } from "../content/site";
 import RecordDetailDrawer from "./records/RecordDetailDrawer";
+import ReviewActions from "./review/ReviewActions";
 import ReviewTable from "./review/ReviewTable";
 import useReviewQueue from "./review/useReviewQueue";
 
@@ -14,10 +15,11 @@ export default function ReviewPage() {
   const queue = useReviewQueue();
   const [selected, setSelected] = useState(null);
 
-  async function runAction(action) {
-    if (!selected) return;
-    const ok = await action(selected.record_id);
-    if (ok) setSelected(null);
+  async function runAction(action, recordId) {
+    const id = recordId || selected?.record_id;
+    if (!id || queue.busyId) return;
+    const ok = await action(id);
+    if (ok && selected?.record_id === id) setSelected(null);
   }
 
   return (
@@ -34,9 +36,18 @@ export default function ReviewPage() {
             <h2>{REVIEW.hero.heading}</h2>
             <p>{REVIEW.hero.intro}</p>
           </div>
-          <p className="review-count" aria-live="polite">
-            {queue.loading ? REVIEW.busyLabel : REVIEW.count(queue.total)}
-          </p>
+          <div className="review-hero-meta">
+            <p className="review-count" aria-live="polite">
+              {queue.loading ? REVIEW.busyLabel : REVIEW.count(queue.total)}
+            </p>
+            <IconButton
+              name="restart"
+              label={REVIEW.refreshLabel}
+              onClick={() => queue.reload()}
+              disabled={queue.loading || Boolean(queue.busyId)}
+              showLabel
+            />
+          </div>
         </div>
         {!queue.loading && queue.total === 0 ? (
           <EmptyState icon="check" title={REVIEW.empty.title} body={REVIEW.empty.body} />
@@ -44,7 +55,10 @@ export default function ReviewPage() {
           <ReviewTable
             items={queue.items}
             loading={queue.loading}
+            busyId={queue.busyId}
             onOpen={setSelected}
+            onApprove={(id) => runAction(queue.approve, id)}
+            onReject={(id) => runAction(queue.reject, id)}
           />
         )}
       </section>
@@ -57,26 +71,14 @@ export default function ReviewPage() {
           issuesHeading={REVIEW.issuesHeading}
           onClose={() => setSelected(null)}
           actions={
-            <div className="review-detail-actions">
-              <IconButton
-                name="check"
-                label={queue.busyId ? REVIEW.busyLabel : REVIEW.approveLabel}
-                onClick={() => runAction(queue.approve)}
-                disabled={Boolean(queue.busyId)}
-                showLabel
-              />
-              <IconButton
-                name="close"
-                className="icon-action danger"
-                label={queue.busyId ? REVIEW.busyLabel : REVIEW.rejectLabel}
-                onClick={() => runAction(queue.reject)}
-                disabled={Boolean(queue.busyId)}
-                showLabel
-              />
-              <button type="button" onClick={() => setSelected(null)}>
-                {REVIEW.closeLabel}
-              </button>
-            </div>
+            <ReviewActions
+              busy={Boolean(queue.busyId)}
+              note={REVIEW.matchNote}
+              showClose
+              onApprove={() => runAction(queue.approve, selected.record_id)}
+              onReject={() => runAction(queue.reject, selected.record_id)}
+              onClose={() => setSelected(null)}
+            />
           }
         />
       ) : null}

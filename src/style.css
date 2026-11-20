@@ -2625,7 +2625,13 @@ a {
   color: var(--color-text-action);
   font-size: 0.78rem;
   font-weight: 700;
-  margin: 0.2rem 0 0;
+  margin: 0;
+}
+.review-hero-meta {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 .review-issue-list {
   list-style: disc;
@@ -2640,12 +2646,72 @@ a {
 .review-issue-list li + li {
   margin-top: 0.25rem;
 }
-.review-detail-actions {
+.review-no-issues {
+  color: var(--color-text-detail);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.review-row-actions {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 11rem;
+}
+.review-queue-table tr.is-busy {
+  opacity: 0.65;
+}
+.review-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+}
+.review-actions-row {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  width: 100%;
+}
+.review-btn {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.55rem 0.85rem;
+}
+.review-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.review-btn-approve {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+.review-btn-approve:hover:not(:disabled) {
+  color: var(--color-white);
+  filter: brightness(0.92);
+}
+.review-btn-reject {
+  background: var(--color-error-surface);
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
+.review-btn-reject:hover:not(:disabled) {
+  filter: brightness(0.97);
+}
+.review-btn-close {
+  background: transparent;
+  border-color: var(--color-border-control);
+  color: var(--color-text-action);
+}
+.review-match-note {
+  color: var(--color-text-detail);
+  font-size: 0.74rem;
+  line-height: 1.45;
+  margin: 0;
 }
 .detail-issues {
   background: var(--color-error-surface);
@@ -2755,6 +2821,11 @@ a {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.5rem;
+}
+.detail-actions-top {
+  border-bottom: 1px solid var(--color-border-detail);
+  margin: 0 0 1rem;
+  padding-bottom: 1rem;
 }
 .primary-source-link {
   align-items: center;

@@ -55,12 +55,18 @@ export async function request(
   { method = "GET", body, signal, defaultError = REQUEST_ERROR } = {},
 ) {
   const hasBody = body !== undefined;
-  const response = await fetch(apiUrl(path), {
-    method,
-    signal,
-    headers: headersWithToken(hasBody ? { "Content-Type": "application/json" } : undefined),
-    ...(hasBody ? { body: JSON.stringify(body) } : {}),
-  });
+  let response;
+  try {
+    response = await fetch(apiUrl(path), {
+      method,
+      signal,
+      headers: headersWithToken(hasBody ? { "Content-Type": "application/json" } : undefined),
+      ...(hasBody ? { body: JSON.stringify(body) } : {}),
+    });
+  } catch (error) {
+    if (error?.name === "AbortError") throw error;
+    throw new ApiError(defaultError, 0);
+  }
   const payload = await response.json().catch(() => null);
   if (!response.ok) throw failure(response, payload?.detail, defaultError);
   return payload;

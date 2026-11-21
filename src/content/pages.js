@@ -1,8 +1,4 @@
-/**
- * Copy for the public information pages, taken from the EveryDoseMatters
- * campaign site so that this app and everydosematters.org say the same thing.
- * Each page links back to the page it mirrors.
- */
+/** Public information-page copy mirrored from everydosematters.org. */
 
 import { CAMPAIGN_PATHS, campaignUrl } from "../config/campaign";
 import { PAGES, ROUTES } from "../config/routes";

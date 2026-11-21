@@ -14,6 +14,7 @@ export const ENDPOINTS = {
   insightsReportCsv: `${API}/insights/report.csv`,
   researchAsk: `${API}/research/ask`,
   reviewPending: `${API}/review/pending`,
+  reviewItem: (recordId) => `${API}/review/${encodeURIComponent(recordId)}`,
   reviewApprove: (recordId) => `${API}/review/${encodeURIComponent(recordId)}/approve`,
   reviewReject: (recordId) => `${API}/review/${encodeURIComponent(recordId)}/reject`,
   authRegister: `${API}/auth/register`,

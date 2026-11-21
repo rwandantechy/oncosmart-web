@@ -8,6 +8,8 @@ import { REVIEW } from "../content/review";
 import { WORKSPACE_SECTIONS } from "../content/site";
 import RecordDetailDrawer from "./records/RecordDetailDrawer";
 import ReviewActions from "./review/ReviewActions";
+import ReviewEditForm from "./review/ReviewEditForm";
+import ReviewFilters from "./review/ReviewFilters";
 import ReviewTable from "./review/ReviewTable";
 import useReviewQueue from "./review/useReviewQueue";
 
@@ -21,6 +23,15 @@ export default function ReviewPage() {
     const ok = await action(id);
     if (ok && selected?.record_id === id) setSelected(null);
   }
+
+  async function saveEdits(fields) {
+    if (!selected?.record_id || queue.busyId) return;
+    const updated = await queue.save(selected.record_id, fields);
+    if (updated) setSelected(updated);
+  }
+
+  const emptyCopy = queue.hasFilters ? REVIEW.emptyFiltered : REVIEW.empty;
+  const showEmpty = !queue.loading && queue.total === 0;
 
   return (
     <AdminLayout
@@ -38,7 +49,9 @@ export default function ReviewPage() {
           </div>
           <div className="review-hero-meta">
             <p className="review-count" aria-live="polite">
-              {queue.loading ? REVIEW.busyLabel : REVIEW.count(queue.total)}
+              {queue.loading
+                ? REVIEW.busyLabel
+                : REVIEW.count(queue.total, queue.hasFilters)}
             </p>
             <IconButton
               name="restart"
@@ -49,8 +62,19 @@ export default function ReviewPage() {
             />
           </div>
         </div>
-        {!queue.loading && queue.total === 0 ? (
-          <EmptyState icon="check" title={REVIEW.empty.title} body={REVIEW.empty.body} />
+        {queue.queueTotal > 0 || queue.hasFilters ? (
+          <ReviewFilters
+            filters={queue.filters}
+            countries={queue.countries}
+            regulators={queue.regulators}
+            issues={queue.issues}
+            hasFilters={queue.hasFilters}
+            onChange={queue.updateFilter}
+            onClear={queue.clearFilters}
+          />
+        ) : null}
+        {showEmpty ? (
+          <EmptyState icon="check" title={emptyCopy.title} body={emptyCopy.body} />
         ) : (
           <ReviewTable
             items={queue.items}
@@ -59,6 +83,7 @@ export default function ReviewPage() {
             onOpen={setSelected}
             onApprove={(id) => runAction(queue.approve, id)}
             onReject={(id) => runAction(queue.reject, id)}
+            onDelete={(id) => runAction(queue.remove, id)}
           />
         )}
       </section>
@@ -71,14 +96,23 @@ export default function ReviewPage() {
           issuesHeading={REVIEW.issuesHeading}
           onClose={() => setSelected(null)}
           actions={
-            <ReviewActions
-              busy={Boolean(queue.busyId)}
-              note={REVIEW.matchNote}
-              showClose
-              onApprove={() => runAction(queue.approve, selected.record_id)}
-              onReject={() => runAction(queue.reject, selected.record_id)}
-              onClose={() => setSelected(null)}
-            />
+            <>
+              <ReviewActions
+                busy={Boolean(queue.busyId)}
+                note={REVIEW.matchNote}
+                showClose
+                showDelete
+                onApprove={() => runAction(queue.approve, selected.record_id)}
+                onReject={() => runAction(queue.reject, selected.record_id)}
+                onDelete={() => runAction(queue.remove, selected.record_id)}
+                onClose={() => setSelected(null)}
+              />
+              <ReviewEditForm
+                record={selected}
+                busy={Boolean(queue.busyId)}
+                onSave={saveEdits}
+              />
+            </>
           }
         />
       ) : null}

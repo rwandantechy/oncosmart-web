@@ -90,11 +90,11 @@ export default function RecordDetailDrawer({
                   {DETAIL_COPY.sourceLinkLabel} <Icon name="arrowRight" />
                 </a>
               ) : null}
-              {actions || (
+              {!actions ? (
                 <button type="button" onClick={onClose}>
                   {DETAIL_COPY.closeButtonLabel}
                 </button>
-              )}
+              ) : null}
             </div>
           </>
         )}

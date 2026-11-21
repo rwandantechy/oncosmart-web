@@ -2702,6 +2702,11 @@ a {
 .review-btn-reject:hover:not(:disabled) {
   filter: brightness(0.97);
 }
+.review-btn-delete {
+  background: transparent;
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
 .review-btn-close {
   background: transparent;
   border-color: var(--color-border-control);
@@ -2712,6 +2717,58 @@ a {
   font-size: 0.74rem;
   line-height: 1.45;
   margin: 0;
+}
+.review-page .research-filters {
+  margin-bottom: 1rem;
+}
+.review-edit-form {
+  border-top: 1px solid var(--color-border-detail);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  padding-top: 1rem;
+  width: 100%;
+}
+.review-edit-form h3 {
+  color: var(--color-heading);
+  font-size: 0.82rem;
+  margin: 0;
+}
+.review-edit-grid {
+  display: grid;
+  gap: 0.75rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+.review-edit-form label {
+  color: var(--color-text-caption);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.62rem;
+  font-weight: 800;
+  gap: 0.35rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.review-edit-wide {
+  grid-column: 1 / -1;
+}
+.review-edit-form input,
+.review-edit-form textarea {
+  border: 1px solid var(--color-border-control);
+  border-radius: 6px;
+  color: var(--color-text-detail);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  padding: 0.55rem 0.65rem;
+  text-transform: none;
+  width: 100%;
+}
+.review-edit-form textarea {
+  line-height: 1.45;
+  resize: vertical;
 }
 .detail-issues {
   background: var(--color-error-surface);

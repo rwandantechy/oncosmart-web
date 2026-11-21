@@ -13,17 +13,35 @@ export const REVIEW = {
   hero: {
     heading: "Notices waiting for review",
     intro:
-      "Product names are matched to the NCI cancer-drug list. Use Approve to publish into the workspace file, or Reject if the notice is incomplete, duplicated, or not useful for oncology practice.",
+      "Filter the queue, open a notice to edit fields, then Approve to publish, Reject to keep it out of the workspace file, or Delete to remove it from this list.",
   },
   loadError: "The review list could not be loaded. Please try again shortly.",
   actionError: "That action could not be completed. Please try again.",
-  count: (total) =>
-    total === 0
-      ? "No notices are waiting."
-      : `${total} notice${total === 1 ? "" : "s"} waiting for review.`,
+  saveError: "Those edits could not be saved. Please try again.",
+  count: (total, filtered) => {
+    if (total === 0) return "No notices are waiting.";
+    if (filtered) {
+      return `${total} notice${total === 1 ? "" : "s"} match these filters.`;
+    }
+    return `${total} notice${total === 1 ? "" : "s"} waiting for review.`;
+  },
   empty: {
     title: "Nothing waiting",
     body: "New notices that fail automatic checks will appear here after the next collection run.",
+  },
+  emptyFiltered: {
+    title: "No matches",
+    body: "No waiting notices match these filters. Clear filters to see the full queue.",
+  },
+  filters: {
+    regionLabel: "Filter notices waiting for review",
+    search: { label: "Find a product or issue", placeholder: "e.g. Azacitidine or sterility" },
+    country: { label: "Country value", anyOption: "All countries" },
+    regulator: { label: "Reporting regulator", anyOption: "All regulators" },
+    from: { label: "Published from" },
+    to: { label: "Published to" },
+    issue: { label: "Needs attention", anyOption: "All issues" },
+    clearLabel: "Clear filters",
   },
   tableHeadings: [
     "Publication",
@@ -39,17 +57,30 @@ export const REVIEW = {
   actionsHeading: "Actions",
   approveLabel: "Approve",
   rejectLabel: "Reject",
+  deleteLabel: "Delete",
+  editLabel: "Edit",
+  saveLabel: "Save changes",
   refreshLabel: "Refresh list",
   busyLabel: "Updating…",
   openRecordLabel: "Open",
   closeLabel: "Close",
   detailEyebrow: "Notice under review",
   issuesHeading: "Needs attention",
+  editHeading: "Correct notice fields",
   matchNote:
     "Matched product names come from the official NCI A–Z cancer-drug list. Confirm the original regulator text still describes that medicine.",
   overviewLinkLabel: "Open notice review",
   overviewNote: (total) =>
     `${total} notice${total === 1 ? "" : "s"} waiting for review after the latest collection.`,
+  fields: {
+    product_name: "Matched product",
+    reason: "Reason",
+    source_country: "Country value",
+    publish_date: "Publication date",
+    manufacturer: "Manufacturer",
+    distributor: "Distributor",
+    more_info: "Additional source information",
+  },
   issueLabels: {
     "missing product_name": "Product name is missing",
     "missing reason": "Reason is missing",
@@ -64,6 +95,6 @@ export const REVIEW = {
     id: "review-scope",
     title: "About these records",
     text:
-      "Only oncology-matched notices reach this queue. Approved notices join the file this workspace reads. Rejected notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
+      "Only oncology-matched notices reach this queue. Edit fields if the match needs correction. Approved notices join the file this workspace reads. Rejected or deleted notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
   },
 };

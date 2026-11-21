@@ -13,7 +13,7 @@ export const REVIEW = {
   hero: {
     heading: "Notices waiting for review",
     intro:
-      "Filter the queue, open a notice to edit fields, then Approve to publish, Reject to keep it out of the workspace file, or Delete to remove it from this list.",
+      "Filter the queue, open a notice to edit fields, then Approve to publish or Reject to keep it out of the workspace file.",
   },
   loadError: "The review list could not be loaded. Please try again shortly.",
   actionError: "That action could not be completed. Please try again.",
@@ -57,7 +57,6 @@ export const REVIEW = {
   actionsHeading: "Actions",
   approveLabel: "Approve",
   rejectLabel: "Reject",
-  deleteLabel: "Delete",
   editLabel: "Edit",
   saveLabel: "Save changes",
   refreshLabel: "Refresh list",
@@ -95,6 +94,6 @@ export const REVIEW = {
     id: "review-scope",
     title: "About these records",
     text:
-      "Only oncology-matched notices reach this queue. Edit fields if the match needs correction. Approved notices join the file this workspace reads. Rejected or deleted notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
+      "Only oncology-matched notices reach this queue. Edit fields if the match needs correction. Approved notices join the file this workspace reads. Rejected notices stay out of that file. Always check the original regulator notice before drawing conclusions.",
   },
 };

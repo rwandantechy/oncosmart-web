@@ -83,7 +83,6 @@ export default function ReviewPage() {
             onOpen={setSelected}
             onApprove={(id) => runAction(queue.approve, id)}
             onReject={(id) => runAction(queue.reject, id)}
-            onDelete={(id) => runAction(queue.remove, id)}
           />
         )}
       </section>
@@ -101,10 +100,8 @@ export default function ReviewPage() {
                 busy={Boolean(queue.busyId)}
                 note={REVIEW.matchNote}
                 showClose
-                showDelete
                 onApprove={() => runAction(queue.approve, selected.record_id)}
                 onReject={() => runAction(queue.reject, selected.record_id)}
-                onDelete={() => runAction(queue.remove, selected.record_id)}
                 onClose={() => setSelected(null)}
               />
               <ReviewEditForm

@@ -13,7 +13,6 @@ export default function ReviewTable({
   onOpen,
   onApprove,
   onReject,
-  onDelete,
 }) {
   const columns = REVIEW.tableHeadings.length + 1;
 
@@ -69,10 +68,8 @@ export default function ReviewTable({
                     </button>
                     <ReviewActions
                       busy={Boolean(busyId)}
-                      showDelete
                       onApprove={() => onApprove(item.record_id)}
                       onReject={() => onReject(item.record_id)}
-                      onDelete={() => onDelete(item.record_id)}
                     />
                   </div>
                 </td>

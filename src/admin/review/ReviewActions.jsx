@@ -4,10 +4,8 @@ export default function ReviewActions({
   busy,
   onApprove,
   onReject,
-  onDelete,
   onClose,
   showClose = false,
-  showDelete = false,
   note,
 }) {
   return (
@@ -38,20 +36,6 @@ export default function ReviewActions({
         >
           {busy ? REVIEW.busyLabel : REVIEW.rejectLabel}
         </button>
-        {showDelete ? (
-          <button
-            type="button"
-            className="review-btn review-btn-delete"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              onDelete();
-            }}
-            disabled={busy}
-          >
-            {busy ? REVIEW.busyLabel : REVIEW.deleteLabel}
-          </button>
-        ) : null}
         {showClose ? (
           <button
             type="button"

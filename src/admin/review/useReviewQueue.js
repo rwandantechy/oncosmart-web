@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { REVIEW } from "../../content/review";
 import {
   approveReview,
-  deleteReview,
   listPending,
   rejectReview,
   updateReview,
@@ -152,7 +151,6 @@ export default function useReviewQueue() {
     clearFilters,
     approve: (recordId) => act(recordId, approveReview),
     reject: (recordId) => act(recordId, rejectReview),
-    remove: (recordId) => act(recordId, deleteReview),
     save,
     reload: () => reload(),
   };

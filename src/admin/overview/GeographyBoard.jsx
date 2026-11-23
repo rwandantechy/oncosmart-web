@@ -22,11 +22,22 @@ export default function GeographyBoard({
     <Surface
       eyebrow={OVERVIEW.countries.eyebrow}
       title={OVERVIEW.countries.title}
-      note={OVERVIEW.countries.note}
-      bodyClassName="space-y-3"
+      flush
+      bodyClassName="space-y-0"
+      action={
+        selectedCountry ? (
+          <button
+            type="button"
+            onClick={() => onSelectCountry?.("")}
+            className="text-[0.72rem] font-medium text-[#245c91] hover:underline"
+          >
+            {OVERVIEW.countries.clearFilter(selectedCountry)}
+          </button>
+        ) : null
+      }
     >
       {loading ? (
-        <div className="h-52 animate-pulse bg-[#edf2f6]" />
+        <div className="aspect-[980/460] animate-pulse bg-[#e7eef3]" />
       ) : chips.length ? (
         <>
           <WorldCountryMap
@@ -34,26 +45,31 @@ export default function GeographyBoard({
             selectedCountry={selectedCountry}
             onSelect={onSelectCountry}
             size="compact"
-            caption="Shaded countries appear in the notices. Click one to filter the table."
           />
-          <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+          <ul
+            className="m-0 flex list-none flex-wrap border-t border-[#e4ebf0] p-0"
+            aria-label={OVERVIEW.countries.listLabel}
+          >
             {chips.map((row) => {
               const value = row.country || row.country_in_source_record || "";
               const country = withFallback(value);
               const active = selectedCountry === value;
               return (
-                <li key={country}>
+                <li key={country} className="border-b border-r border-[#e4ebf0]">
                   <button
                     type="button"
                     onClick={() => onSelectCountry?.(active ? "" : value)}
-                    className={`inline-flex h-7 items-center gap-2 border px-2.5 text-[0.72rem] ${
+                    aria-pressed={active}
+                    className={`inline-flex h-8 items-center gap-2 px-3 text-[0.7rem] leading-none ${
                       active
-                        ? "border-[#0f2a4a] bg-[#0f2a4a] font-semibold text-white"
-                        : "border-[#d5e0e8] bg-white text-[#0f2a4a] hover:border-[#245c91]"
+                        ? "bg-[#071f49] font-semibold text-white"
+                        : "bg-white text-[#0f2a4a] hover:bg-[#f3f6f8]"
                     }`}
                   >
                     <span>{country}</span>
-                    <span className={`tabular-nums ${active ? "text-white/80" : "text-[#7a8d9a]"}`}>
+                    <span
+                      className={`tabular-nums ${active ? "text-white/70" : "text-[#7a8d9a]"}`}
+                    >
                       {row.records}
                     </span>
                   </button>
@@ -63,7 +79,7 @@ export default function GeographyBoard({
           </ul>
         </>
       ) : (
-        <p className="m-0 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
+        <p className="m-0 px-4 py-3 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
       )}
     </Surface>
   );

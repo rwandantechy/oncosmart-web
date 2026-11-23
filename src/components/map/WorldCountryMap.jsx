@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Graticule,
+  Sphere,
+} from "react-simple-maps";
 import {
   buildCountryIndex,
   recordsForGeo,
@@ -8,15 +14,16 @@ import {
 
 const GEO_URL = "/geo/countries-110m.json";
 
-/** EDM-style palette: quiet land, solid navy for countries with notices. */
 const FILL = {
-  empty: "#d9e3ec",
+  empty: "#d4dde6",
   active: "#071f49",
-  activeMid: "#183e6b",
-  activeSoft: "#245c91",
-  selected: "#168c8c",
+  activeMid: "#14345f",
+  activeSoft: "#2a5f8f",
+  selected: "#0f6e6a",
   hover: "#0c356b",
-  stroke: "#ffffff",
+  stroke: "#f4f7f9",
+  ocean: "#e7eef3",
+  grid: "#d5e0e8",
 };
 
 function fillForCount(count, max, selected, hovered) {
@@ -25,20 +32,20 @@ function fillForCount(count, max, selected, hovered) {
   if (hovered) return FILL.hover;
   if (max <= 1) return FILL.active;
   const t = count / max;
-  if (t >= 0.55) return FILL.active;
-  if (t >= 0.2) return FILL.activeMid;
+  if (t >= 0.5) return FILL.active;
+  if (t >= 0.15) return FILL.activeMid;
   return FILL.activeSoft;
 }
 
 /**
- * Reusable world choropleth (react-simple-maps v5 uses path fill props, not style.default).
+ * Full-bleed choropleth. Sized only by aspect-ratio so the board never
+ * leaves an empty grey band under a short SVG.
  */
 export default function WorldCountryMap({
   countries = [],
   selectedCountry = "",
   onSelect,
   size = "default",
-  caption,
 }) {
   const [tip, setTip] = useState(null);
   const [hovered, setHovered] = useState("");
@@ -51,19 +58,26 @@ export default function WorldCountryMap({
     return highest;
   }, [index]);
 
-  const height = size === "compact" ? 240 : 340;
-  const scale = size === "compact" ? 145 : 165;
+  // Equal Earth ~2.05:1 — keep scale modest so southern continents stay in frame.
+  const width = 980;
+  const height = size === "compact" ? 460 : 500;
+  const scale = size === "compact" ? 148 : 158;
 
   return (
-    <div className="world-country-map relative w-full overflow-hidden border border-[#e4ebf0] bg-[#eef3f7]">
+    <div
+      className="world-country-map relative w-full overflow-hidden"
+      style={{ background: FILL.ocean, aspectRatio: `${width} / ${height}` }}
+    >
       <ComposableMap
         projection="geoEqualEarth"
-        projectionConfig={{ scale, center: [10, 8] }}
-        width={800}
+        projectionConfig={{ scale, center: [0, 8] }}
+        width={width}
         height={height}
-        className="h-auto w-full"
-        style={{ width: "100%", height: "auto", display: "block" }}
+        className="absolute inset-0 block h-full w-full"
+        style={{ width: "100%", height: "100%", display: "block" }}
       >
+        <Sphere id="edm-sphere" fill={FILL.ocean} stroke={FILL.grid} strokeWidth={0.6} />
+        <Graticule stroke={FILL.grid} strokeWidth={0.35} step={[24, 24]} />
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
             geographies.map((geo) => {
@@ -84,17 +98,15 @@ export default function WorldCountryMap({
                   tabIndex={interactive ? 0 : -1}
                   role={interactive ? "button" : undefined}
                   aria-label={
-                    count
-                      ? `${sourceCountry || name}: ${count} notices`
-                      : name
+                    count ? `${sourceCountry || name}: ${count} notices` : name
                   }
                   fill={fillForCount(count, max, selected, isHovered)}
                   stroke={FILL.stroke}
-                  strokeWidth={0.55}
+                  strokeWidth={0.35}
                   style={{
                     outline: "none",
                     cursor: interactive ? "pointer" : "default",
-                    transition: "fill 120ms ease",
+                    transition: "fill 100ms ease",
                   }}
                   onClick={() => {
                     if (!interactive) return;
@@ -138,18 +150,12 @@ export default function WorldCountryMap({
 
       {tip ? (
         <div
-          className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-[120%] rounded-md bg-navy px-2.5 py-1.5 text-[0.72rem] text-white shadow-lg"
+          className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-[130%] bg-[#071f49] px-2.5 py-1.5 text-[0.72rem] text-white shadow-md"
           style={{ left: tip.x, top: tip.y }}
         >
           <strong className="font-semibold">{tip.label}</strong>
-          <span className="ml-2 tabular-nums opacity-90">{tip.records}</span>
+          <span className="ml-2 tabular-nums text-white/80">{tip.records}</span>
         </div>
-      ) : null}
-
-      {caption ? (
-        <p className="m-0 border-t border-[#e4ebf0] bg-white px-3 py-2 text-[0.72rem] leading-5 text-[#667988]">
-          {caption}
-        </p>
       ) : null}
     </div>
   );

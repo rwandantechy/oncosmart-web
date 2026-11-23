@@ -14,8 +14,7 @@ export const SEARCH = {
   },
   map: {
     eyebrow: "WHERE NOTICES ARE FROM",
-    title: "Country values on the map",
-    caption: "Shaded countries appear in the notices on file. Click one to filter.",
+    title: "Countries named in notices",
     selected: (country) => `Showing notices naming ${country}.`,
     clearLabel: "Clear country filter",
   },

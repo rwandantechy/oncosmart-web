@@ -9,18 +9,12 @@ export default function Surface({
   flush = false,
 }) {
   return (
-    <section className={`flex min-h-0 flex-col bg-white ${className}`}>
+    <section className={`flex h-fit min-h-0 flex-col bg-white ${className}`}>
       {(eyebrow || title || note || action) && (
-        <header
-          className={`flex items-start justify-between gap-4 border-b border-[#e4ebf0] ${
-            flush ? "px-0 pb-3" : "px-4 py-3"
-          }`}
-        >
+        <header className="flex items-start justify-between gap-4 border-b border-[#e4ebf0] px-4 py-3">
           <div className="min-w-0">
             {eyebrow ? (
-              <p className="m-0 text-[0.68rem] font-medium tracking-[0.04em] text-[#6a7f8f]">
-                {eyebrow}
-              </p>
+              <p className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{eyebrow}</p>
             ) : null}
             {title ? (
               <h3 className="m-0 text-[0.95rem] font-semibold tracking-[-0.02em] text-[#0f2a4a]">
@@ -36,9 +30,7 @@ export default function Surface({
           {action ? <div className="shrink-0 pt-0.5">{action}</div> : null}
         </header>
       )}
-      <div className={`min-h-0 flex-1 ${flush ? "" : "px-4 py-3"} ${bodyClassName}`}>
-        {children}
-      </div>
+      <div className={`min-h-0 ${flush ? "" : "px-4 py-3"} ${bodyClassName}`}>{children}</div>
     </section>
   );
 }

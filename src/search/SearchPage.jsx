@@ -92,7 +92,7 @@ export default function SearchPage() {
               countries={countries}
               selectedCountry={country}
               onSelect={selectCountry}
-              caption={SEARCH.map.caption}
+              size="compact"
             />
           </section>
         ) : null}

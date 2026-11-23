@@ -65,7 +65,6 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4">
         <ErrorBanner message={error || panelError} />
 
-        {/* One architectural board: hairline grid, no floating card soup */}
         <div className="overview-board overflow-hidden border border-[#d5e0e8] bg-[#d5e0e8]">
           <CommandBar
             summary={summary}
@@ -82,7 +81,7 @@ export default function DashboardPage() {
             loading={loading}
           />
 
-          <div className="grid grid-cols-1 gap-px xl:grid-cols-12">
+          <div className="grid grid-cols-1 gap-px xl:grid-cols-12 xl:items-start">
             <div className="flex flex-col gap-px xl:col-span-7">
               <TimelineBoard
                 timeline={data.timeline}

@@ -55,7 +55,8 @@ export const OVERVIEW = {
   countries: {
     eyebrow: "Geography",
     title: "Countries named in notices",
-    note: "Values as written in the source notice. Click the map or a chip to filter.",
+    listLabel: "Countries in notices",
+    clearFilter: (country) => `Clear ${country}`,
     publishedBy: (regulator) => regulator,
   },
   completeness: {

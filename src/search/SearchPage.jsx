@@ -1,3 +1,4 @@
+import WorldCountryMap from "../components/map/WorldCountryMap";
 import EmptyState from "../components/ui/EmptyState";
 import Skeleton from "../components/ui/Skeleton";
 import SiteFooter from "../components/layout/SiteFooter";
@@ -15,6 +16,9 @@ export default function SearchPage() {
   const {
     query,
     updateQuery,
+    country,
+    countries,
+    selectCountry,
     alerts,
     lastTerm,
     phase,
@@ -70,6 +74,28 @@ export default function SearchPage() {
           loading={isBusy}
           disabled={phase === SEARCH_PHASES.unavailable}
         />
+        {phase !== SEARCH_PHASES.unavailable && countries.length > 0 ? (
+          <section className="search-map-panel" aria-label={SEARCH.map.title}>
+            <div className="search-map-heading">
+              <p className="eyebrow">{SEARCH.map.eyebrow}</p>
+              <h2>{SEARCH.map.title}</h2>
+              {country ? (
+                <p className="status">
+                  {SEARCH.map.selected(country)}{" "}
+                  <button className="reset-button" type="button" onClick={() => selectCountry("")}>
+                    {SEARCH.map.clearLabel}
+                  </button>
+                </p>
+              ) : null}
+            </div>
+            <WorldCountryMap
+              countries={countries}
+              selectedCountry={country}
+              onSelect={selectCountry}
+              caption={SEARCH.map.caption}
+            />
+          </section>
+        ) : null}
         {(!looking || phase === SEARCH_PHASES.empty) && phase !== SEARCH_PHASES.unavailable && (
           <SuggestedSearches onSelect={search} />
         )}

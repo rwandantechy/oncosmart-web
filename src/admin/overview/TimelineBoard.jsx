@@ -26,12 +26,12 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
       ) : months.length ? (
         <>
           <div
-            className="flex h-40 items-end gap-1.5"
+            className="flex h-44 items-end gap-2"
             role="list"
             aria-label={OVERVIEW.timeline.chartLabel}
           >
             {months.map((item) => {
-              const height = Math.max(8, (item.records / highest) * 100);
+              const height = Math.max(14, (item.records / highest) * 100);
               return (
                 <button
                   key={item.month}
@@ -42,13 +42,13 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
                     const range = monthRange(item.month);
                     if (range) onSelectMonth?.(range);
                   }}
-                  className="group flex min-w-0 flex-1 flex-col items-center justify-end gap-1 rounded-md border border-transparent px-0.5 py-1 text-left transition hover:border-blue/20 hover:bg-blue/[0.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-focus-ring"
+                  className="group flex min-w-0 flex-1 flex-col items-center justify-end gap-1.5 rounded-md border border-transparent px-0.5 py-1 text-left transition hover:border-blue/25 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-focus-ring"
                 >
-                  <span className="text-[0.65rem] font-semibold tabular-nums text-text-label opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="text-[0.68rem] font-semibold tabular-nums text-text-label">
                     {item.records}
                   </span>
                   <span
-                    className="w-full rounded-t-sm bg-gradient-to-t from-blue to-blue-bar-top transition group-hover:from-navy group-hover:to-blue"
+                    className="w-[70%] max-w-8 rounded-t-md bg-gradient-to-t from-navy to-blue transition group-hover:from-teal-deep group-hover:to-teal"
                     style={{ height: `${height}%` }}
                   />
                   <span className="w-full truncate text-center text-[0.62rem] text-text-caption">

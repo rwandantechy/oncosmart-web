@@ -7,7 +7,7 @@ import { WORKSPACE_SECTIONS } from "../content/site";
 import CategoryBoard from "./overview/CategoryBoard";
 import CommandBar from "./overview/CommandBar";
 import CompletenessBoard from "./overview/CompletenessBoard";
-import CountriesBoard from "./overview/CountriesBoard";
+import GeographyBoard from "./overview/GeographyBoard";
 import KpiRibbon from "./overview/KpiRibbon";
 import ProductsBoard from "./overview/ProductsBoard";
 import ReviewRail from "./overview/ReviewRail";
@@ -18,8 +18,21 @@ import useDashboardData from "./useDashboardData";
 export default function DashboardPage() {
   const { data, error, loading } = useDashboardData();
   const [panelError, setPanelError] = useState("");
+  const [mapCountry, setMapCountry] = useState("");
   const recordsRef = useRef(null);
   const { summary, dataset } = data;
+
+  const countryCounts = useMemo(() => {
+    const totals = new Map();
+    (data.sources || []).forEach((row) => {
+      const country = row.country_in_source_record;
+      if (!country) return;
+      totals.set(country, (totals.get(country) || 0) + row.records);
+    });
+    return [...totals.entries()]
+      .map(([country, records]) => ({ country, records }))
+      .sort((a, b) => b.records - a.records);
+  }, [data.sources]);
 
   const lowestCompleteness = useMemo(() => {
     const items = data.completeness || [];
@@ -30,7 +43,16 @@ export default function DashboardPage() {
   }, [data.completeness]);
 
   function filterRecords(patch) {
+    if (Object.prototype.hasOwnProperty.call(patch, "country")) {
+      setMapCountry(patch.country || "");
+    } else if (Object.keys(patch).length) {
+      setMapCountry("");
+    }
     recordsRef.current?.applyFilters(patch);
+  }
+
+  function selectCountry(country) {
+    filterRecords({ country: country || "" });
   }
 
   return (
@@ -59,13 +81,25 @@ export default function DashboardPage() {
         />
 
         <div className="grid grid-cols-1 gap-3 xl:grid-cols-12">
-          <div className="flex flex-col gap-3 xl:col-span-8">
+          <div className="flex flex-col gap-3 xl:col-span-7">
             <TimelineBoard
               timeline={data.timeline}
               loading={loading}
-              onSelectMonth={filterRecords}
+              onSelectMonth={(range) => filterRecords(range)}
             />
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+            <GeographyBoard
+              countries={countryCounts}
+              sources={data.sources}
+              loading={loading}
+              selectedCountry={mapCountry}
+              onSelectCountry={selectCountry}
+            />
+          </div>
+
+          <div className="flex flex-col gap-3 xl:col-span-5">
+            <ReviewRail pendingReview={data.pendingReview} loading={loading} />
+            <CompletenessBoard items={data.completeness} loading={loading} />
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
               <CategoryBoard
                 research={data.research}
                 loading={loading}
@@ -77,21 +111,6 @@ export default function DashboardPage() {
                 onSelectProduct={(product) => filterRecords({ q: product })}
               />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-3 xl:col-span-4">
-            <ReviewRail pendingReview={data.pendingReview} loading={loading} />
-            <CompletenessBoard items={data.completeness} loading={loading} />
-            <CountriesBoard
-              sources={data.sources}
-              loading={loading}
-              onSelectCountry={({ country, regulator }) =>
-                filterRecords({
-                  country: country || "",
-                  regulator: country ? "" : regulator,
-                })
-              }
-            />
           </div>
         </div>
 

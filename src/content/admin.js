@@ -54,8 +54,8 @@ export const OVERVIEW = {
   },
   countries: {
     eyebrow: "Geography",
-    title: "Country values",
-    note: "As written in source notices",
+    title: "Where notices name countries",
+    note: "Country values as written in source notices · click the map to filter",
     publishedBy: (regulator) => regulator,
   },
   completeness: {

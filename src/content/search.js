@@ -12,6 +12,13 @@ export const SEARCH = {
     intro:
       "Look up a medicine or product name to find official notices, understand the key facts, and open the original source.",
   },
+  map: {
+    eyebrow: "WHERE NOTICES ARE FROM",
+    title: "Country values on the map",
+    caption: "Shaded countries appear in the notices on file. Click one to filter.",
+    selected: (country) => `Showing notices naming ${country}.`,
+    clearLabel: "Clear country filter",
+  },
   recent: {
     eyebrow: "RECENT NOTICES",
     heading: "Recently published notices",

@@ -20,6 +20,10 @@ export function searchAlerts({ filters = {}, page, pageSize } = {}, options) {
   return request(withQuery(ENDPOINTS.alerts, params), options);
 }
 
+export function getAlertGeo(options) {
+  return request(ENDPOINTS.alertsGeo, options);
+}
+
 export function getAlert(recordId, options) {
   return request(ENDPOINTS.alert(recordId), options);
 }

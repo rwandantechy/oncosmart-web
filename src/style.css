@@ -3104,3 +3104,28 @@ a {
     padding: 0.8rem 0.7rem;
   }
 }
+
+/* Public search geography map */
+.search-map-panel {
+  margin: 1.25rem 0 0.5rem;
+  padding: 1rem 1.1rem 1.15rem;
+  border: 1px solid var(--color-border-panel, #d7e0e8);
+  border-radius: 12px;
+  background: #fff;
+}
+.search-map-heading {
+  margin-bottom: 0.65rem;
+}
+.search-map-heading h2 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--color-heading);
+}
+.search-map-heading .status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}

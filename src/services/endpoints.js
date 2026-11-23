@@ -4,6 +4,7 @@ export const ENDPOINTS = {
   health: `${API}/health`,
   dataset: `${API}/dataset`,
   alerts: `${API}/alerts`,
+  alertsGeo: `${API}/alerts/geo`,
   alert: (recordId) => `${API}/alerts/${encodeURIComponent(recordId)}`,
   alertExplanation: (recordId) => `${API}/alerts/${encodeURIComponent(recordId)}/explain`,
   insightsSummary: `${API}/insights/summary`,

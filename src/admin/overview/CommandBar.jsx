@@ -10,11 +10,11 @@ import { formatDate } from "../../utils/date";
 
 function Meta({ label, value }) {
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 border-l border-slate-200 pl-3 first:border-l-0 first:pl-0">
       <dt className="m-0 text-[0.65rem] font-semibold tracking-[0.06em] text-text-caption uppercase">
         {label}
       </dt>
-      <dd className="m-0 truncate text-[0.82rem] font-semibold text-ink">{value}</dd>
+      <dd className="m-0 truncate text-[0.84rem] font-semibold text-navy">{value}</dd>
     </div>
   );
 }
@@ -52,12 +52,12 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
 
   return (
     <section
-      className="rounded-lg border border-slate-200/90 bg-gradient-to-br from-navy to-navy-soft px-3.5 py-3 text-white shadow-[0_8px_24px_rgba(7,31,73,0.18)]"
+      className="rounded-lg border border-slate-200/90 bg-white px-3.5 py-3 shadow-[0_1px_0_rgba(7,31,73,0.04)]"
       aria-label={copy.regionLabel}
       aria-busy={loading}
     >
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 xl:grid-cols-5">
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+        <dl className="grid min-w-0 flex-1 grid-cols-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-5">
           <Meta label={copy.collection} value={formatDate(summary?.latest_collection)} />
           <Meta label={copy.imported} value={formatDate(dataset?.imported_at)} />
           <Meta label={copy.publication} value={formatDate(summary?.latest_publication)} />
@@ -67,7 +67,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
             value={loading ? FALLBACKS.dash : statusValue || copy.pendingNote}
           />
         </dl>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 xl:shrink-0">
           {pendingReview > 0 ? (
             <a
               href={ROUTES.adminReview}
@@ -76,7 +76,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
               {REVIEW.overviewNote(pendingReview)}
             </a>
           ) : (
-            <span className="rounded-md bg-white/10 px-3 py-1.5 text-[0.78rem] text-text-sidebar">
+            <span className="rounded-md bg-slate-50 px-3 py-1.5 text-[0.78rem] text-muted">
               {copy.reviewClear}
             </span>
           )}
@@ -84,13 +84,13 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
             type="button"
             onClick={download}
             disabled={downloadState === DOWNLOAD_STATES.working}
-            className="inline-flex items-center rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-[0.78rem] font-semibold text-white transition hover:bg-white/20 disabled:opacity-60"
+            className="inline-flex items-center rounded-md border border-slate-200 bg-white px-3 py-1.5 text-[0.78rem] font-semibold text-navy transition hover:border-blue/30 hover:bg-slate-50 disabled:opacity-60"
           >
             {downloadLabel}
           </button>
         </div>
       </div>
-      <p className="m-0 mt-2.5 text-[0.72rem] text-text-sidebar">{copy.drillHint}</p>
+      <p className="m-0 mt-2.5 text-[0.72rem] text-muted">{copy.drillHint}</p>
     </section>
   );
 }

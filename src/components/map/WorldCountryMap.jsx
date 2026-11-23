@@ -8,30 +8,30 @@ import {
 
 const GEO_URL = "/geo/countries-110m.json";
 
+/** EDM-style palette: quiet land, solid navy for countries with notices. */
 const FILL = {
-  empty: "#d7e0e8",
-  land: "#9eb4c6",
+  empty: "#d9e3ec",
   active: "#071f49",
+  activeMid: "#183e6b",
+  activeSoft: "#245c91",
   selected: "#168c8c",
-  hover: "#245c91",
+  hover: "#0c356b",
+  stroke: "#ffffff",
 };
 
-function fillForCount(count, max, selected) {
+function fillForCount(count, max, selected, hovered) {
   if (!count) return FILL.empty;
   if (selected) return FILL.selected;
+  if (hovered) return FILL.hover;
   if (max <= 1) return FILL.active;
-  const t = Math.min(1, 0.35 + (count / max) * 0.65);
-  // Blend navy intensity by volume
-  const light = 30 + Math.round((1 - t) * 40);
-  return `hsl(214 82% ${light}%)`;
+  const t = count / max;
+  if (t >= 0.55) return FILL.active;
+  if (t >= 0.2) return FILL.activeMid;
+  return FILL.activeSoft;
 }
 
 /**
- * Reusable world choropleth.
- * @param {Array<{country?: string, country_in_source_record?: string, records: number}>} countries
- * @param {string} [selectedCountry] source_country value currently selected
- * @param {(country: string) => void} [onSelect] called with source_country (toggle if same)
- * @param {"compact"|"default"} [size]
+ * Reusable world choropleth (react-simple-maps v5 uses path fill props, not style.default).
  */
 export default function WorldCountryMap({
   countries = [],
@@ -41,6 +41,7 @@ export default function WorldCountryMap({
   caption,
 }) {
   const [tip, setTip] = useState(null);
+  const [hovered, setHovered] = useState("");
   const index = useMemo(() => buildCountryIndex(countries), [countries]);
   const max = useMemo(() => {
     let highest = 1;
@@ -50,17 +51,18 @@ export default function WorldCountryMap({
     return highest;
   }, [index]);
 
-  const height = size === "compact" ? 220 : 320;
+  const height = size === "compact" ? 240 : 340;
+  const scale = size === "compact" ? 145 : 165;
 
   return (
-    <div className="relative w-full">
+    <div className="world-country-map relative w-full overflow-hidden rounded-md bg-[#eef3f7]">
       <ComposableMap
         projection="geoEqualEarth"
-        projectionConfig={{ scale: size === "compact" ? 135 : 155 }}
+        projectionConfig={{ scale, center: [10, 8] }}
         width={800}
         height={height}
         className="h-auto w-full"
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "auto", display: "block" }}
       >
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
@@ -73,6 +75,7 @@ export default function WorldCountryMap({
                 sourceCountry &&
                 selectedCountry === sourceCountry;
               const interactive = count > 0 && typeof onSelect === "function";
+              const isHovered = hovered === name;
 
               return (
                 <Geography
@@ -85,6 +88,14 @@ export default function WorldCountryMap({
                       ? `${sourceCountry || name}: ${count} notices`
                       : name
                   }
+                  fill={fillForCount(count, max, selected, isHovered)}
+                  stroke={FILL.stroke}
+                  strokeWidth={0.55}
+                  style={{
+                    outline: "none",
+                    cursor: interactive ? "pointer" : "default",
+                    transition: "fill 120ms ease",
+                  }}
                   onClick={() => {
                     if (!interactive) return;
                     onSelect(selected ? "" : sourceCountry);
@@ -97,6 +108,7 @@ export default function WorldCountryMap({
                     }
                   }}
                   onMouseEnter={(event) => {
+                    setHovered(name);
                     if (!count) return;
                     setTip({
                       label: sourceCountry || name,
@@ -113,26 +125,9 @@ export default function WorldCountryMap({
                         : current,
                     );
                   }}
-                  onMouseLeave={() => setTip(null)}
-                  style={{
-                    default: {
-                      fill: count ? fillForCount(count, max, selected) : FILL.land,
-                      stroke: "#f4f7fa",
-                      strokeWidth: 0.5,
-                      outline: "none",
-                      cursor: interactive ? "pointer" : "default",
-                    },
-                    hover: {
-                      fill: count ? (selected ? FILL.selected : FILL.hover) : FILL.land,
-                      stroke: "#ffffff",
-                      strokeWidth: 0.6,
-                      outline: "none",
-                      cursor: interactive ? "pointer" : "default",
-                    },
-                    pressed: {
-                      fill: FILL.selected,
-                      outline: "none",
-                    },
+                  onMouseLeave={() => {
+                    setHovered("");
+                    setTip(null);
                   }}
                 />
               );
@@ -152,7 +147,9 @@ export default function WorldCountryMap({
       ) : null}
 
       {caption ? (
-        <p className="m-0 mt-2 text-[0.72rem] text-muted">{caption}</p>
+        <p className="m-0 border-t border-slate-200/80 bg-white px-2.5 py-2 text-[0.72rem] text-muted">
+          {caption}
+        </p>
       ) : null}
     </div>
   );

@@ -35,6 +35,11 @@ export default function useRecordsReview({ onError }) {
     setFilters(EMPTY_FILTERS);
   }, []);
 
+  const applyFilters = useCallback((patch) => {
+    setPage(1);
+    setFilters({ ...EMPTY_FILTERS, ...patch });
+  }, []);
+
   const openRecord = useCallback(
     (recordId) => {
       setDetailLoading(true);
@@ -63,6 +68,7 @@ export default function useRecordsReview({ onError }) {
     setPage,
     updateFilter,
     clearFilters,
+    applyFilters,
     openRecord,
     closeRecord,
   };

@@ -4,7 +4,7 @@ import { ANCHOR_IDS, ROUTES } from "../config/routes";
 export const BRAND = {
   publicName: "Every Dose Matters",
   productName: "EveryDoseMatters",
-  workspaceTagline: "BESAFE research workspace",
+  workspaceTagline: "Research workspace",
   publicHomeLabel: "Every Dose Matters home",
   productHomeLabel: "EveryDoseMatters home",
 };

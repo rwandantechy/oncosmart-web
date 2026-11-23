@@ -26,7 +26,7 @@ export default function GeographyBoard({
       bodyClassName="space-y-3"
     >
       {loading ? (
-        <div className="h-52 animate-pulse rounded-md bg-slate-100" />
+        <div className="h-52 animate-pulse bg-[#edf2f6]" />
       ) : chips.length ? (
         <>
           <WorldCountryMap
@@ -34,29 +34,28 @@ export default function GeographyBoard({
             selectedCountry={selectedCountry}
             onSelect={onSelectCountry}
             size="compact"
-            caption="Click a shaded country to filter published notices. Click again to clear."
+            caption="Shaded countries appear in the notices. Click one to filter the table."
           />
           <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
             {chips.map((row) => {
-              const country = withFallback(row.country || row.country_in_source_record);
-              const active = selectedCountry === (row.country || row.country_in_source_record);
+              const value = row.country || row.country_in_source_record || "";
+              const country = withFallback(value);
+              const active = selectedCountry === value;
               return (
                 <li key={country}>
                   <button
                     type="button"
-                    onClick={() =>
-                      onSelectCountry?.(
-                        active ? "" : row.country || row.country_in_source_record || "",
-                      )
-                    }
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.72rem] transition ${
+                    onClick={() => onSelectCountry?.(active ? "" : value)}
+                    className={`inline-flex h-7 items-center gap-2 border px-2.5 text-[0.72rem] ${
                       active
-                        ? "border-teal bg-teal/10 font-semibold text-teal-deep"
-                        : "border-slate-200 bg-slate-50 text-ink hover:border-blue/30"
+                        ? "border-[#0f2a4a] bg-[#0f2a4a] font-semibold text-white"
+                        : "border-[#d5e0e8] bg-white text-[#0f2a4a] hover:border-[#245c91]"
                     }`}
                   >
                     <span>{country}</span>
-                    <span className="tabular-nums text-muted">{row.records}</span>
+                    <span className={`tabular-nums ${active ? "text-white/80" : "text-[#7a8d9a]"}`}>
+                      {row.records}
+                    </span>
                   </button>
                 </li>
               );
@@ -64,7 +63,7 @@ export default function GeographyBoard({
           </ul>
         </>
       ) : (
-        <p className="m-0 text-sm text-muted">{EMPTY_PANEL.countries}</p>
+        <p className="m-0 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
       )}
     </Surface>
   );

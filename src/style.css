@@ -1572,18 +1572,19 @@ a {
 .admin-warning {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-  background: var(--color-surface-warning);
-  border: 1px solid var(--color-border-panel);
-  color: var(--color-text-subtle);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  background: #fff;
+  border: 1px solid #d5e0e8;
+  color: #667988;
+  padding: 0.7rem 1rem;
+  border-radius: 0;
   font-size: 0.78rem;
-  margin-bottom: 1.25rem;
+  line-height: 1.45;
+  margin-bottom: 1rem;
 }
 .admin-warning strong {
-  color: var(--color-text-action);
+  color: #0f2a4a;
   font-weight: 700;
 }
 .admin-warning a {

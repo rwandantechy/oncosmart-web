@@ -6,18 +6,13 @@ export default function ReviewRail({ pendingReview, loading }) {
   const waiting = pendingReview > 0;
 
   return (
-    <Surface
-      eyebrow={OVERVIEW.reviewRail.eyebrow}
-      title={OVERVIEW.reviewRail.title}
-      className={waiting ? "border-teal/35 ring-1 ring-teal/15" : ""}
-      bodyClassName="flex flex-col gap-3"
-    >
-      <div className="flex items-end justify-between gap-3">
+    <Surface eyebrow={OVERVIEW.reviewRail.eyebrow} title={OVERVIEW.reviewRail.title}>
+      <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="m-0 text-[1.75rem] font-semibold tracking-tight tabular-nums text-navy">
+          <p className="m-0 text-[2rem] font-semibold tracking-[-0.04em] tabular-nums leading-none text-[#0f2a4a]">
             {loading ? "—" : pendingReview}
           </p>
-          <p className="m-0 text-[0.75rem] text-muted">
+          <p className="m-0 mt-2 text-[0.75rem] text-[#667988]">
             {waiting
               ? OVERVIEW.reviewRail.count(pendingReview)
               : OVERVIEW.reviewRail.empty}
@@ -25,10 +20,10 @@ export default function ReviewRail({ pendingReview, loading }) {
         </div>
         <a
           href={ROUTES.adminReview}
-          className={`inline-flex items-center rounded-md px-3 py-1.5 text-[0.78rem] font-semibold no-underline transition ${
+          className={`inline-flex h-8 items-center rounded-[3px] px-3 text-[0.75rem] font-semibold no-underline ${
             waiting
-              ? "bg-teal text-white hover:bg-teal-pressed"
-              : "border border-slate-200 bg-slate-50 text-text-action hover:bg-white"
+              ? "bg-[#0f2a4a] text-white hover:bg-[#183e6b]"
+              : "border border-[#c9d6e0] text-[#0f2a4a] hover:border-[#245c91]"
           }`}
         >
           {OVERVIEW.reviewRail.cta}

@@ -34,9 +34,8 @@ const RecordsReview = forwardRef(function RecordsReview({ sources, onError }, re
   );
 
   return (
-    <div ref={shellRef}>
+    <div ref={shellRef} className="bg-white">
       <Surface
-        className="recent-panel"
         eyebrow={RECORDS_REVIEW.eyebrow}
         title={RECORDS_REVIEW.title}
         action={searchAllLink}

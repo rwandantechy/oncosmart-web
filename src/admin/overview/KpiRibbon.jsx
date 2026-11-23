@@ -1,26 +1,18 @@
 import { OVERVIEW } from "../../content/admin";
 import { FALLBACKS } from "../../content/common";
 
-function Kpi({ label, value, note, accent = false, pending = false }) {
+function Kpi({ label, value, note, emphasize = false, pending = false }) {
   return (
-    <div
-      className={`rounded-lg border px-3 py-2.5 ${
-        accent
-          ? "border-teal/30 bg-teal/[0.06]"
-          : "border-slate-200/90 bg-white"
-      }`}
-    >
-      <p className="m-0 text-[0.65rem] font-semibold tracking-[0.06em] text-text-caption uppercase">
-        {label}
-      </p>
+    <div className="bg-white px-4 py-3">
+      <p className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{label}</p>
       <p
-        className={`m-0 mt-1 text-[1.35rem] font-semibold tracking-tight tabular-nums ${
-          accent ? "text-teal-deep" : "text-navy"
+        className={`m-0 mt-1 text-[1.5rem] font-semibold tracking-[-0.03em] tabular-nums leading-none ${
+          emphasize ? "text-[#0f6e6a]" : "text-[#0f2a4a]"
         }`}
       >
         {pending ? FALLBACKS.dash : value}
       </p>
-      {note ? <p className="m-0 mt-0.5 text-[0.7rem] text-muted">{note}</p> : null}
+      {note ? <p className="m-0 mt-1.5 text-[0.72rem] text-[#7a8d9a]">{note}</p> : null}
     </div>
   );
 }
@@ -33,7 +25,7 @@ export default function KpiRibbon({
 }) {
   return (
     <section
-      className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-5"
+      className="grid grid-cols-2 border-b border-[#e4ebf0] bg-[#e4ebf0] gap-px sm:grid-cols-3 xl:grid-cols-5"
       aria-label={OVERVIEW.metrics.regionLabel}
       aria-busy={loading}
     >
@@ -47,7 +39,7 @@ export default function KpiRibbon({
         />
       ))}
       <Kpi
-        accent={pendingReview > 0}
+        emphasize={pendingReview > 0}
         label={OVERVIEW.metrics.pendingReview.label}
         value={pendingReview}
         note={OVERVIEW.metrics.pendingReview.note}

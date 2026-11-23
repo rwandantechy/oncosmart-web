@@ -62,44 +62,45 @@ export default function DashboardPage() {
       title={OVERVIEW.title}
       warning={OVERVIEW.warning}
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <ErrorBanner message={error || panelError} />
 
-        <CommandBar
-          summary={summary}
-          dataset={dataset}
-          pendingReview={data.pendingReview}
-          loading={loading}
-          onError={setPanelError}
-        />
+        {/* One architectural board: hairline grid, no floating card soup */}
+        <div className="overview-board overflow-hidden border border-[#d5e0e8] bg-[#d5e0e8]">
+          <CommandBar
+            summary={summary}
+            dataset={dataset}
+            pendingReview={data.pendingReview}
+            loading={loading}
+            onError={setPanelError}
+          />
 
-        <KpiRibbon
-          summary={summary}
-          pendingReview={data.pendingReview}
-          lowestCompleteness={lowestCompleteness}
-          loading={loading}
-        />
+          <KpiRibbon
+            summary={summary}
+            pendingReview={data.pendingReview}
+            lowestCompleteness={lowestCompleteness}
+            loading={loading}
+          />
 
-        <div className="grid grid-cols-1 gap-3 xl:grid-cols-12">
-          <div className="flex flex-col gap-3 xl:col-span-7">
-            <TimelineBoard
-              timeline={data.timeline}
-              loading={loading}
-              onSelectMonth={(range) => filterRecords(range)}
-            />
-            <GeographyBoard
-              countries={countryCounts}
-              sources={data.sources}
-              loading={loading}
-              selectedCountry={mapCountry}
-              onSelectCountry={selectCountry}
-            />
-          </div>
+          <div className="grid grid-cols-1 gap-px xl:grid-cols-12">
+            <div className="flex flex-col gap-px xl:col-span-7">
+              <TimelineBoard
+                timeline={data.timeline}
+                loading={loading}
+                onSelectMonth={(range) => filterRecords(range)}
+              />
+              <GeographyBoard
+                countries={countryCounts}
+                sources={data.sources}
+                loading={loading}
+                selectedCountry={mapCountry}
+                onSelectCountry={selectCountry}
+              />
+            </div>
 
-          <div className="flex flex-col gap-3 xl:col-span-5">
-            <ReviewRail pendingReview={data.pendingReview} loading={loading} />
-            <CompletenessBoard items={data.completeness} loading={loading} />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="flex flex-col gap-px xl:col-span-5">
+              <ReviewRail pendingReview={data.pendingReview} loading={loading} />
+              <CompletenessBoard items={data.completeness} loading={loading} />
               <CategoryBoard
                 research={data.research}
                 loading={loading}
@@ -112,9 +113,11 @@ export default function DashboardPage() {
               />
             </div>
           </div>
-        </div>
 
-        <RecordsReview ref={recordsRef} sources={data.sources} onError={setPanelError} />
+          <div className="border-t border-[#d5e0e8]">
+            <RecordsReview ref={recordsRef} sources={data.sources} onError={setPanelError} />
+          </div>
+        </div>
 
         <DataScopeNote {...OVERVIEW.scope} />
       </div>

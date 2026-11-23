@@ -10,11 +10,11 @@ import { formatDate } from "../../utils/date";
 
 function Meta({ label, value }) {
   return (
-    <div className="min-w-0 border-l border-slate-200 pl-3 first:border-l-0 first:pl-0">
-      <dt className="m-0 text-[0.65rem] font-semibold tracking-[0.06em] text-text-caption uppercase">
-        {label}
-      </dt>
-      <dd className="m-0 truncate text-[0.84rem] font-semibold text-navy">{value}</dd>
+    <div className="min-w-0">
+      <dt className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{label}</dt>
+      <dd className="m-0 mt-0.5 truncate text-[0.84rem] font-semibold tabular-nums text-[#0f2a4a]">
+        {value}
+      </dd>
     </div>
   );
 }
@@ -52,12 +52,12 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
 
   return (
     <section
-      className="rounded-lg border border-slate-200/90 bg-white px-3.5 py-3 shadow-[0_1px_0_rgba(7,31,73,0.04)]"
+      className="border-b border-[#e4ebf0] bg-white px-4 py-3"
       aria-label={copy.regionLabel}
       aria-busy={loading}
     >
-      <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-        <dl className="grid min-w-0 flex-1 grid-cols-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
+        <dl className="grid min-w-0 flex-1 grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 xl:grid-cols-5">
           <Meta label={copy.collection} value={formatDate(summary?.latest_collection)} />
           <Meta label={copy.imported} value={formatDate(dataset?.imported_at)} />
           <Meta label={copy.publication} value={formatDate(summary?.latest_publication)} />
@@ -67,30 +67,25 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
             value={loading ? FALLBACKS.dash : statusValue || copy.pendingNote}
           />
         </dl>
-        <div className="flex flex-wrap items-center gap-2 xl:shrink-0">
+        <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           {pendingReview > 0 ? (
             <a
               href={ROUTES.adminReview}
-              className="inline-flex items-center rounded-md bg-teal px-3 py-1.5 text-[0.78rem] font-semibold text-white no-underline transition hover:bg-teal-pressed"
+              className="inline-flex h-8 items-center rounded-[3px] bg-[#0f2a4a] px-3 text-[0.75rem] font-semibold text-white no-underline hover:bg-[#183e6b]"
             >
               {REVIEW.overviewNote(pendingReview)}
             </a>
-          ) : (
-            <span className="rounded-md bg-slate-50 px-3 py-1.5 text-[0.78rem] text-muted">
-              {copy.reviewClear}
-            </span>
-          )}
+          ) : null}
           <button
             type="button"
             onClick={download}
             disabled={downloadState === DOWNLOAD_STATES.working}
-            className="inline-flex items-center rounded-md border border-slate-200 bg-white px-3 py-1.5 text-[0.78rem] font-semibold text-navy transition hover:border-blue/30 hover:bg-slate-50 disabled:opacity-60"
+            className="inline-flex h-8 items-center rounded-[3px] border border-[#c9d6e0] bg-white px-3 text-[0.75rem] font-semibold text-[#0f2a4a] hover:border-[#245c91] hover:text-[#245c91] disabled:opacity-60"
           >
             {downloadLabel}
           </button>
         </div>
       </div>
-      <p className="m-0 mt-2.5 text-[0.72rem] text-muted">{copy.drillHint}</p>
     </section>
   );
 }

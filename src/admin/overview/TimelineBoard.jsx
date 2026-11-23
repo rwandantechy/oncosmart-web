@@ -15,23 +15,27 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
       eyebrow={OVERVIEW.timeline.eyebrow}
       title={OVERVIEW.timeline.title}
       note={OVERVIEW.timeline.note}
-      bodyClassName="flex flex-col gap-3"
+      bodyClassName="flex flex-col gap-4"
     >
       {loading ? (
-        <div className="flex h-36 items-end gap-1.5">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="flex-1 animate-pulse rounded-t bg-slate-100" style={{ height: `${40 + (index % 5) * 12}%` }} />
+        <div className="flex h-40 items-end gap-1.5">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div
+              key={index}
+              className="flex-1 animate-pulse bg-[#edf2f6]"
+              style={{ height: `${35 + (index % 5) * 12}%` }}
+            />
           ))}
         </div>
       ) : months.length ? (
         <>
           <div
-            className="flex h-44 items-end gap-2"
+            className="flex h-40 items-end gap-1.5"
             role="list"
             aria-label={OVERVIEW.timeline.chartLabel}
           >
             {months.map((item) => {
-              const height = Math.max(14, (item.records / highest) * 100);
+              const height = Math.max(12, (item.records / highest) * 100);
               return (
                 <button
                   key={item.month}
@@ -42,37 +46,35 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
                     const range = monthRange(item.month);
                     if (range) onSelectMonth?.(range);
                   }}
-                  className="group flex min-w-0 flex-1 flex-col items-center justify-end gap-1.5 rounded-md border border-transparent px-0.5 py-1 text-left transition hover:border-blue/25 hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-focus-ring"
+                  className="group flex min-w-0 flex-1 flex-col items-center justify-end gap-1 px-0.5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#245c91]"
                 >
-                  <span className="text-[0.68rem] font-semibold tabular-nums text-text-label">
+                  <span className="text-[0.65rem] font-medium tabular-nums text-[#6a7f8f] opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
                     {item.records}
                   </span>
                   <span
-                    className="w-[70%] max-w-8 rounded-t-md bg-gradient-to-t from-navy to-blue transition group-hover:from-teal-deep group-hover:to-teal"
+                    className="w-full max-w-[18px] bg-[#0f2a4a] transition group-hover:bg-[#245c91]"
                     style={{ height: `${height}%` }}
                   />
-                  <span className="w-full truncate text-center text-[0.62rem] text-text-caption">
+                  <span className="w-full truncate text-center text-[0.62rem] text-[#7a8d9a]">
                     {item.month.slice(MONTH_LABEL_OFFSET)}
                   </span>
                 </button>
               );
             })}
           </div>
-          <p className="m-0 flex flex-wrap gap-x-2 gap-y-1 text-[0.72rem] text-muted">
-            <strong className="font-semibold text-ink">
+          <p className="m-0 text-[0.72rem] leading-5 text-[#667988]">
+            <strong className="font-semibold text-[#0f2a4a]">
               {timeline?.records_in_full_range ?? 0}
             </strong>
-            <span>
-              {OVERVIEW.timeline.footnoteRange(
-                timeline?.range_start || FALLBACKS.dash,
-                timeline?.range_end || FALLBACKS.dash,
-              )}
-            </span>
-            <span>{OVERVIEW.timeline.footnoteNote}</span>
+            {OVERVIEW.timeline.footnoteRange(
+              timeline?.range_start || FALLBACKS.dash,
+              timeline?.range_end || FALLBACKS.dash,
+            )}{" "}
+            {OVERVIEW.timeline.footnoteNote}
           </p>
         </>
       ) : (
-        <p className="m-0 text-sm text-muted">{EMPTY_PANEL.timeline}</p>
+        <p className="m-0 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.timeline}</p>
       )}
     </Surface>
   );

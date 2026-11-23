@@ -45,27 +45,27 @@ export const OVERVIEW = {
     },
   },
   timeline: {
-    eyebrow: "Publication activity",
+    eyebrow: "Activity",
     title: "Notices by month",
-    note: `Latest ${TIMELINE_MONTHS_VISIBLE} months · click a bar to filter`,
+    note: `Last ${TIMELINE_MONTHS_VISIBLE} publication months. Click a bar to filter the table.`,
     chartLabel: "Alerts by publication month",
-    footnoteRange: (start, end) => ` records · ${start}–${end}`,
-    footnoteNote: "Publication dates, not collection activity.",
+    footnoteRange: (start, end) => ` records · ${start}–${end}.`,
+    footnoteNote: "Publication dates, not collection dates.",
   },
   countries: {
     eyebrow: "Geography",
-    title: "Where notices name countries",
-    note: "Country values as written in source notices · click the map to filter",
+    title: "Countries named in notices",
+    note: "Values as written in the source notice. Click the map or a chip to filter.",
     publishedBy: (regulator) => regulator,
   },
   completeness: {
-    eyebrow: "Data quality",
+    eyebrow: "Quality",
     title: "Field completeness",
-    note: "Share of records with each field",
-    ratio: (valid, total) => `${valid}/${total}`,
+    note: "Share of imported records that carry each field",
+    ratio: (valid, total) => `${valid} / ${total}`,
   },
   categories: {
-    eyebrow: "Research brief",
+    eyebrow: "Brief",
     title: "Notice categories",
     downloadLabel: "Download records",
     downloadingLabel: "Preparing file…",
@@ -75,15 +75,15 @@ export const OVERVIEW = {
     recordCount: (records) => `${records}`,
   },
   products: {
-    eyebrow: "Frequency",
-    title: "Top products",
-    note: "Most named in notices · click to filter",
+    eyebrow: "Products",
+    title: "Most frequent",
+    note: "Click a product to filter published notices",
   },
   reviewRail: {
     eyebrow: "Queue",
     title: "Notice review",
     empty: "Nothing waiting for review.",
-    cta: "Review notices",
+    cta: "Open review",
     count: (total) => `${total} waiting`,
   },
   scope: {
@@ -97,7 +97,7 @@ export const OVERVIEW = {
 };
 
 export const RECORDS_REVIEW = {
-  eyebrow: "RECORD REVIEW",
+  eyebrow: "Records",
   title: "Published notices",
   searchAllLabel: "Search all notices",
   searchAllHref: ROUTES.home,

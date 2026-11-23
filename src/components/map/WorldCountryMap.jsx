@@ -55,7 +55,7 @@ export default function WorldCountryMap({
   const scale = size === "compact" ? 145 : 165;
 
   return (
-    <div className="world-country-map relative w-full overflow-hidden rounded-md bg-[#eef3f7]">
+    <div className="world-country-map relative w-full overflow-hidden border border-[#e4ebf0] bg-[#eef3f7]">
       <ComposableMap
         projection="geoEqualEarth"
         projectionConfig={{ scale, center: [10, 8] }}
@@ -147,7 +147,7 @@ export default function WorldCountryMap({
       ) : null}
 
       {caption ? (
-        <p className="m-0 border-t border-slate-200/80 bg-white px-2.5 py-2 text-[0.72rem] text-muted">
+        <p className="m-0 border-t border-[#e4ebf0] bg-white px-3 py-2 text-[0.72rem] leading-5 text-[#667988]">
           {caption}
         </p>
       ) : null}

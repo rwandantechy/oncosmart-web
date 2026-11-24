@@ -1275,11 +1275,13 @@ a {
   --admin-ink: #071f49;
   --admin-ink-soft: #14345f;
   --admin-muted: #5a6f80;
-  --admin-surface: #eef1f4;
+  --admin-surface: #e8eef3;
   --admin-panel: #ffffff;
-  --admin-rule: #dce3ea;
+  --admin-rule: #d5dee7;
   --admin-track: #e4eaef;
   --admin-accent: #0f6e6a;
+  --admin-font: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --admin-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", serif;
 
   --color-navy: var(--admin-ink);
   --color-ink: var(--admin-ink);
@@ -1292,7 +1294,7 @@ a {
   --color-text-subtle: var(--admin-muted);
   --color-muted: var(--admin-muted);
   --color-surface: var(--admin-surface);
-  --color-surface-translucent: color-mix(in srgb, var(--admin-surface) 94%, transparent);
+  --color-surface-translucent: color-mix(in srgb, var(--admin-surface) 88%, transparent);
   --color-surface-warning: var(--admin-panel);
   --color-border-topbar: var(--admin-rule);
   --color-border-panel: var(--admin-rule);
@@ -1302,8 +1304,12 @@ a {
   flex: 1 0 auto;
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--admin-surface);
+  background:
+    radial-gradient(1200px 480px at 72% -8%, rgba(15, 110, 106, 0.07), transparent 58%),
+    radial-gradient(900px 420px at 100% 18%, rgba(7, 31, 73, 0.05), transparent 55%),
+    linear-gradient(180deg, #f3f6f9 0%, var(--admin-surface) 42%, #e6edf3 100%);
   color: var(--admin-ink);
+  font-family: var(--admin-font);
 
   /* Clears the sidebar, then balances the capped content column in what is left. */
   --admin-slack: max(
@@ -1315,24 +1321,31 @@ a {
 .admin-shell .panel,
 .admin-shell .metric-card {
   border-color: var(--admin-rule);
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(7, 31, 73, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), var(--admin-panel));
 }
 .admin-shell .eyebrow {
   color: var(--admin-muted);
+  letter-spacing: 0.08em;
 }
 .admin-shell .panel h2 {
   color: var(--admin-ink);
+  font-family: var(--admin-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 .admin-sidebar {
-  --sb-pad-x: 1.25rem;
-  --sb-ink: #c8d5e0;
-  --sb-ink-quiet: #8fa3b3;
-  --sb-ink-label: #7d93a4;
-  --sb-rule: rgba(255, 255, 255, 0.1);
+  --sb-pad-x: 1.15rem;
+  --sb-ink: #d5e0ea;
+  --sb-ink-quiet: #93a8b8;
+  --sb-ink-label: #7f96a8;
+  --sb-rule: rgba(255, 255, 255, 0.09);
   --sb-hover: rgba(255, 255, 255, 0.07);
-  --sb-active: rgba(255, 255, 255, 0.11);
-  --sb-focus: rgba(255, 255, 255, 0.45);
+  --sb-active: rgba(255, 255, 255, 0.12);
+  --sb-focus: rgba(143, 224, 211, 0.65);
+  --sb-accent: #8fe0d3;
 
   position: fixed;
   inset: 0 auto 0 0;
@@ -1340,38 +1353,45 @@ a {
   width: var(--sidebar-width);
   overflow-x: hidden;
   overflow-y: auto;
-  background: #071f49;
+  background:
+    radial-gradient(520px 280px at 0% 0%, rgba(143, 224, 211, 0.12), transparent 58%),
+    radial-gradient(420px 360px at 110% 70%, rgba(36, 92, 145, 0.35), transparent 62%),
+    linear-gradient(185deg, #0a2a5c 0%, #071f49 42%, #061a3d 100%);
   color: var(--sb-ink);
   padding: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 8px 0 28px rgba(4, 14, 34, 0.18);
 }
 
 /* Zone 1 — brand (logo asset already includes campaign tagline) */
 .sidebar-brand {
   flex: 0 0 auto;
   margin: 0;
-  padding: 1.35rem var(--sb-pad-x) 1.1rem;
+  padding: 1.45rem var(--sb-pad-x) 1.2rem;
   border-bottom: 1px solid var(--sb-rule);
-  background: transparent;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
   color: inherit;
   position: static;
+  animation: sidebar-brand-in 0.55s ease both;
 }
 .sidebar-brand img {
   display: block;
-  width: 168px;
+  width: 172px;
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.15));
 }
 .sidebar-brand-tagline {
-  margin: 0.45rem 0 0;
+  margin: 0.55rem 0 0;
   padding: 0 0.1rem;
   color: var(--sb-ink-quiet);
   font-size: 0.68rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1.35;
 }
 
@@ -1379,26 +1399,30 @@ a {
 .sidebar-body {
   flex: 1 1 auto;
   min-height: 0;
-  padding: 1.1rem var(--sb-pad-x) 0.75rem;
+  padding: 1.2rem var(--sb-pad-x) 0.85rem;
 }
 .workspace-nav {
   display: flex;
   flex-direction: column;
-  gap: 1.35rem;
+  gap: 1.45rem;
 }
 .nav-group {
   margin: 0;
   padding: 0;
   border: 0;
   min-width: 0;
+  animation: sidebar-nav-in 0.5s ease both;
+}
+.nav-group:nth-child(2) {
+  animation-delay: 0.06s;
 }
 .nav-group-label {
-  margin: 0 0 0.45rem;
-  padding: 0 0.7rem;
+  margin: 0 0 0.5rem;
+  padding: 0 0.75rem;
   color: var(--sb-ink-label);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -1407,7 +1431,7 @@ a {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.12rem;
+  gap: 0.18rem;
 }
 .side-link-narrow {
   display: none;
@@ -1416,17 +1440,21 @@ a {
   align-items: center;
   color: var(--sb-ink);
   display: flex;
-  gap: 0.7rem;
+  gap: 0.75rem;
   text-decoration: none;
-  padding: 0.62rem 0.7rem;
-  border-radius: 3px;
+  padding: 0.68rem 0.75rem;
+  border-radius: 8px;
   margin: 0;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.82rem;
+  font-weight: 600;
   line-height: 1.25;
+  letter-spacing: -0.01em;
+  position: relative;
   transition:
-    background 0.12s ease,
-    color 0.12s ease;
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 .side-link-label {
   min-width: 0;
@@ -1439,29 +1467,42 @@ a {
   white-space: nowrap;
 }
 .menu-icon {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+  border-radius: 7px;
   color: var(--sb-ink-quiet);
-  flex: 0 0 16px;
-  height: 16px;
-  padding: 0;
+  flex: 0 0 28px;
+  height: 28px;
+  padding: 5px;
   opacity: 1;
-  width: 16px;
+  width: 28px;
+  box-sizing: border-box;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 .side-link:hover {
   background: var(--sb-hover);
   color: #fff;
+  transform: translateX(1px);
 }
 .side-link.is-active {
-  background: var(--sb-active);
-  box-shadow: inset 2px 0 #fff;
+  background: linear-gradient(90deg, rgba(143, 224, 211, 0.16), var(--sb-active) 42%);
+  box-shadow:
+    inset 3px 0 0 var(--sb-accent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
 }
-.side-link.is-active .menu-icon,
+.side-link.is-active .menu-icon {
+  background: rgba(143, 224, 211, 0.16);
+  border-color: rgba(143, 224, 211, 0.28);
+  color: var(--sb-accent);
+}
 .side-link:hover .menu-icon {
   color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 .side-link:focus-visible {
   outline: 2px solid var(--sb-focus);
@@ -1470,16 +1511,20 @@ a {
 
 /* Secondary “Open” tier — quieter, leaves the research chrome */
 .nav-group--secondary {
-  padding-top: 0.15rem;
+  padding-top: 0.2rem;
   border-top: 1px solid var(--sb-rule);
 }
 .nav-group--secondary .nav-group-label {
-  margin-top: 0.95rem;
+  margin-top: 1rem;
 }
 .nav-group--secondary .side-link {
   color: var(--sb-ink-quiet);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 500;
+}
+.nav-group--secondary .side-link .menu-icon {
+  background: transparent;
+  border-color: transparent;
 }
 .nav-group--secondary .side-link:hover,
 .nav-group--secondary .side-link.is-active {
@@ -1490,9 +1535,9 @@ a {
 .sidebar-account {
   flex: 0 0 auto;
   margin-top: auto;
-  padding: 0.85rem var(--sb-pad-x) 1.1rem;
+  padding: 0.9rem var(--sb-pad-x) 1.15rem;
   border-top: 1px solid var(--sb-rule);
-  background: transparent;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.18), transparent);
 }
 .account-menu {
   min-width: 0;
@@ -1501,21 +1546,25 @@ a {
 }
 .account-trigger {
   align-items: center;
-  background: transparent;
-  border: 0;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
   color: var(--color-white);
   cursor: pointer;
   display: flex;
   gap: 0.65rem;
   min-width: 0;
-  padding: 0.5rem 0.55rem;
+  padding: 0.55rem 0.6rem;
   text-align: left;
   width: 100%;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 .account-trigger:hover,
 .account-trigger:focus-visible {
-  background: var(--sb-hover);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.14);
   outline: 0;
 }
 .account-copy {
@@ -1662,10 +1711,40 @@ a {
   opacity: 0.72;
 }
 .admin-topbar h1 {
-  font-size: clamp(1.45rem, 4.2vw, 1.75rem);
-  letter-spacing: -0.025em;
+  font-family: var(--admin-display);
+  font-size: clamp(1.5rem, 4.2vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
   line-height: 1.1;
   margin: 0;
+}
+@keyframes sidebar-brand-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sidebar-nav-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-brand,
+  .nav-group,
+  .side-link {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 .header-actions {
   display: none;
@@ -3224,6 +3303,7 @@ a {
     --sb-pad-x: 0.35rem;
     align-items: stretch;
     bottom: 0;
+    box-shadow: 0 -8px 24px rgba(4, 14, 34, 0.22);
     flex-direction: row;
     gap: 0;
     height: 68px;
@@ -3233,6 +3313,7 @@ a {
     width: 100%;
     border-right: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #071f49;
   }
   .sidebar-brand,
   .sidebar-account,
@@ -3273,6 +3354,7 @@ a {
   }
   .side-link {
     align-items: center;
+    border-radius: 8px;
     flex-direction: column;
     font-size: 0.62rem;
     gap: 0.2rem;
@@ -3281,6 +3363,7 @@ a {
     margin: 0;
     min-width: 0;
     padding: 0.35rem 0.2rem;
+    transform: none;
     white-space: nowrap;
   }
   .side-link-wide {
@@ -3293,12 +3376,21 @@ a {
     text-overflow: ellipsis;
   }
   .side-link .menu-icon {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
     height: 16px;
     padding: 0;
     width: 16px;
   }
   .side-link.is-active {
-    box-shadow: inset 0 2px #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 0 var(--sb-accent, #8fe0d3);
+  }
+  .side-link.is-active .menu-icon {
+    background: transparent;
+    border: 0;
+    color: var(--sb-accent, #8fe0d3);
   }
   .admin-main {
     margin-left: 0;

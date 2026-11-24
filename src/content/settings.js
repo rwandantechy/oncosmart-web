@@ -69,4 +69,17 @@ export const SETTINGS = {
     error: "Your password could not be updated.",
     mismatchError: AUTH_SHARED.mismatchError,
   },
+  tools: {
+    id: ANCHOR_IDS.collectionTools,
+    eyebrow: "COLLECTION",
+    title: "Collection tools",
+    note: "Starts the same GitHub Actions workflows used for scheduled collection. Admins only.",
+    loadError: "Collection tools could not be loaded.",
+    runError: "That collection job could not be started.",
+    notConfigured:
+      "Collection tools are not configured for this environment yet. Add the GitHub Actions token and repo on the API host.",
+    viewRunsLabel: "Open GitHub Actions",
+    runningLabel: "Starting…",
+    runLabel: "Run",
+  },
 };

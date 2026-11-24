@@ -19,6 +19,7 @@ export const ANCHOR_IDS = {
   dataScope: "data-scope",
   assistantScope: "assistant-scope",
   accountSettings: "account-settings",
+  collectionTools: "collection-tools",
 };
 
 export const ANCHORS = Object.fromEntries(

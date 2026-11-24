@@ -22,4 +22,6 @@ export const ENDPOINTS = {
   authLogin: `${API}/auth/login`,
   authSession: `${API}/auth/me`,
   authPassword: `${API}/auth/password`,
+  adminTools: `${API}/admin/tools`,
+  adminToolRun: (toolId) => `${API}/admin/tools/${encodeURIComponent(toolId)}/run`,
 };

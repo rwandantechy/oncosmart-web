@@ -30,3 +30,6 @@ export const SESSION_STATES = {
   signedIn: "signedIn",
   signedOut: "signedOut",
 };
+
+/** Mirrors V2_ADMIN_ROLE on the API. */
+export const ADMIN_ROLE = "admin";

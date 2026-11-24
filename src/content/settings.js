@@ -78,6 +78,8 @@ export const SETTINGS = {
     runError: "That collection job could not be started.",
     notConfigured:
       "Collection tools are not configured for this environment yet. Add the GitHub Actions token and repo on the API host.",
+    adminRequired:
+      "Collection tools are available to admin accounts only. Add this account email to V2_ADMIN_EMAILS on the API host.",
     viewRunsLabel: "Open GitHub Actions",
     runningLabel: "Starting…",
     runLabel: "Run",

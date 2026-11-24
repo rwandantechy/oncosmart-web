@@ -7,19 +7,21 @@ export default function CollectionTools({ enabled }) {
     useCollectionTools({ enabled });
   const copy = SETTINGS.tools;
 
-  if (!enabled) return null;
-
   return (
     <Panel id={copy.id} eyebrow={copy.eyebrow} title={copy.title} note={copy.note}>
-      {loading ? (
+      {!enabled ? (
+        <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{copy.adminRequired}</p>
+      ) : null}
+
+      {enabled && loading ? (
         <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">Loading…</p>
       ) : null}
 
-      {!loading && !configured ? (
+      {enabled && !loading && !configured ? (
         <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{copy.notConfigured}</p>
       ) : null}
 
-      {!loading && configured ? (
+      {enabled && !loading && configured ? (
         <ul className="collection-tools-list">
           {tools.map((tool) => (
             <li key={tool.id}>

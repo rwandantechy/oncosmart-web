@@ -22,11 +22,9 @@ export default function SettingsPage() {
         <ProfileForm />
         <PasswordForm />
       </section>
-      {isAdmin ? (
-        <section className="settings-grid settings-grid--tools">
-          <CollectionTools enabled />
-        </section>
-      ) : null}
+      <section className="settings-grid settings-grid--tools">
+        <CollectionTools enabled={isAdmin} />
+      </section>
     </AdminLayout>
   );
 }

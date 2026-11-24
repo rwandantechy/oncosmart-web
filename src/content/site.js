@@ -25,6 +25,7 @@ export const WORKSPACE_SECTIONS = {
   assistant: "assistant",
   review: "review",
   collection: "collection",
+  drugs: "drugs",
   settings: "settings",
   search: "search",
   publicView: "publicView",
@@ -63,6 +64,13 @@ export const WORKSPACE_NAV_GROUPS = [
         compactLabel: "Collect",
         href: ROUTES.adminCollection,
         icon: "collection",
+      },
+      {
+        id: WORKSPACE_SECTIONS.drugs,
+        label: "Drug list",
+        compactLabel: "Drugs",
+        href: ROUTES.adminDrugs,
+        icon: "drugs",
       },
       {
         id: WORKSPACE_SECTIONS.settings,

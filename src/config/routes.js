@@ -12,6 +12,7 @@ export const ROUTES = {
   adminAssistant: "/admin/assistant",
   adminReview: "/admin/review",
   adminCollection: "/admin/collection",
+  adminDrugs: "/admin/drugs",
   adminSettings: "/admin/settings",
 };
 
@@ -21,6 +22,7 @@ export const ANCHOR_IDS = {
   assistantScope: "assistant-scope",
   accountSettings: "account-settings",
   collectionTools: "collection-tools",
+  drugList: "drug-list",
 };
 
 export const ANCHORS = Object.fromEntries(
@@ -39,6 +41,7 @@ export const PAGES = {
   adminAssistant: "adminAssistant",
   adminReview: "adminReview",
   adminCollection: "adminCollection",
+  adminDrugs: "adminDrugs",
   adminSettings: "adminSettings",
 };
 
@@ -52,6 +55,7 @@ const PAGE_BY_PATH = {
   [ROUTES.adminAssistant]: PAGES.adminAssistant,
   [ROUTES.adminReview]: PAGES.adminReview,
   [ROUTES.adminCollection]: PAGES.adminCollection,
+  [ROUTES.adminDrugs]: PAGES.adminDrugs,
   [ROUTES.adminSettings]: PAGES.adminSettings,
   [ROUTES.adminOverview]: PAGES.adminOverview,
 };
@@ -62,6 +66,7 @@ export const PAGES_REQUIRING_SESSION = [
   PAGES.adminAssistant,
   PAGES.adminReview,
   PAGES.adminCollection,
+  PAGES.adminDrugs,
   PAGES.adminSettings,
 ];
 

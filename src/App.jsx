@@ -1,5 +1,6 @@
 import CollectionToolsPage from "./admin/CollectionToolsPage";
 import DashboardPage from "./admin/DashboardPage";
+import DrugListPage from "./admin/DrugListPage";
 import ResearchAssistantPage from "./admin/ResearchAssistantPage";
 import ReviewPage from "./admin/ReviewPage";
 import SettingsPage from "./admin/SettingsPage";
@@ -38,6 +39,7 @@ const PAGE_VIEWS = {
   [PAGES.adminAssistant]: () => <ResearchAssistantPage />,
   [PAGES.adminReview]: () => <ReviewPage />,
   [PAGES.adminCollection]: () => <CollectionToolsPage />,
+  [PAGES.adminDrugs]: () => <DrugListPage />,
   [PAGES.adminSettings]: () => <SettingsPage />,
   [PAGES.adminOverview]: () => <DashboardPage />,
   [PAGES.home]: () => <SearchPage />,

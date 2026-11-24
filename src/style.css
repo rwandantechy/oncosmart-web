@@ -1784,6 +1784,66 @@ a {
   font-size: 0.78rem;
   font-weight: 600;
 }
+.drug-list-meta {
+  align-items: baseline;
+  color: var(--admin-muted, var(--color-muted));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  font-size: 0.76rem;
+  justify-content: space-between;
+  margin: 0.35rem 0 0.85rem;
+}
+.drug-list-meta p {
+  margin: 0;
+}
+.drug-list-meta a {
+  color: var(--admin-ink-soft, var(--color-blue));
+  font-weight: 600;
+}
+.drug-table-wrap {
+  border: 1px solid var(--admin-rule, var(--color-border-card-soft));
+  max-height: min(68vh, 40rem);
+  overflow: auto;
+}
+.drug-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.drug-table th,
+.drug-table td {
+  border-bottom: 1px solid var(--admin-rule, var(--color-border-card-soft));
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+.drug-table th {
+  background: color-mix(in srgb, var(--admin-canvas, #f3f6f8) 88%, white);
+  color: var(--admin-muted, var(--color-muted));
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  position: sticky;
+  text-transform: uppercase;
+  top: 0;
+}
+.drug-table strong {
+  color: var(--admin-ink, var(--color-heading));
+  display: block;
+  font-size: 0.88rem;
+}
+.drug-table-slug {
+  color: var(--admin-muted, var(--color-muted));
+  display: block;
+  font-size: 0.72rem;
+  margin-top: 0.2rem;
+}
+.drug-table a {
+  color: var(--admin-ink-soft, var(--color-blue));
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
 .settings-form {
   display: grid;
   gap: 0.15rem;

@@ -107,6 +107,13 @@ const ICON_PATHS = {
       <path d="M12 8v4l3 2" />
     </>
   ),
+  drugs: (
+    <>
+      <path d="M9 3h6v4H9z" />
+      <path d="M10 7h4v14a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2V7Z" />
+      <path d="M10 12h4" />
+    </>
+  ),
   linkedin: (
     <path
       fill="currentColor"

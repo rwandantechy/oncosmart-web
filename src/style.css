@@ -1747,6 +1747,35 @@ a {
 .collection-tools-list .settings-submit {
   margin-top: 0.15rem;
 }
+.collection-tool-run {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  margin: 0.55rem 0 0;
+}
+.collection-tool-run-label {
+  font-weight: 700;
+}
+.collection-tool-run-meta {
+  color: var(--admin-muted, var(--color-muted));
+}
+.collection-tool-run a {
+  color: var(--admin-ink-soft, var(--color-blue));
+  font-weight: 600;
+}
+.collection-tool-run--queued .collection-tool-run-label,
+.collection-tool-run--active .collection-tool-run-label {
+  color: #0b5cab;
+}
+.collection-tool-run--ok .collection-tool-run-label {
+  color: #1f6b3a;
+}
+.collection-tool-run--bad .collection-tool-run-label {
+  color: #a12828;
+}
 .collection-tools-link {
   margin: 0.85rem 0 0;
 }

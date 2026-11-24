@@ -89,7 +89,10 @@ export const SETTINGS = {
     adminRequired:
       "Collection tools are available to admin accounts only. Add this account email to V2_ADMIN_EMAILS on the API host.",
     viewRunsLabel: "Open GitHub Actions",
+    viewRunLabel: "View run",
+    runNumberLabel: "Run #{n}",
     runningLabel: "Starting…",
+    inProgressLabel: "Running…",
     runLabel: "Run",
   },
 };

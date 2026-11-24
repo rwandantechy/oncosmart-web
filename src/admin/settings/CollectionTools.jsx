@@ -2,6 +2,36 @@ import Panel from "../../components/ui/Panel";
 import { SETTINGS } from "../../content/settings";
 import useCollectionTools from "./useCollectionTools";
 
+function runTone(run) {
+  if (!run) return "idle";
+  if (run.status === "in_progress") return "active";
+  if (["queued", "waiting", "requested", "pending"].includes(run.status)) return "queued";
+  if (run.status === "completed" && run.conclusion === "success") return "ok";
+  if (run.status === "completed") return "bad";
+  return "idle";
+}
+
+function RunStatus({ run, copy }) {
+  if (!run) return null;
+  const tone = runTone(run);
+  const detail =
+    run.run_number != null
+      ? copy.runNumberLabel.replace("{n}", String(run.run_number))
+      : null;
+
+  return (
+    <p className={`collection-tool-run collection-tool-run--${tone}`} role="status">
+      <span className="collection-tool-run-label">{run.label}</span>
+      {detail ? <span className="collection-tool-run-meta">{detail}</span> : null}
+      {run.html_url ? (
+        <a href={run.html_url} target="_blank" rel="noopener noreferrer">
+          {copy.viewRunLabel}
+        </a>
+      ) : null}
+    </p>
+  );
+}
+
 export default function CollectionTools({ enabled }) {
   const { tools, configured, actionsUrl, loading, error, status, runningId, run } =
     useCollectionTools({ enabled });
@@ -28,6 +58,7 @@ export default function CollectionTools({ enabled }) {
               <div>
                 <strong>{tool.label}</strong>
                 <p>{tool.description}</p>
+                <RunStatus run={tool.latest_run} copy={copy} />
               </div>
               <button
                 type="button"
@@ -36,7 +67,11 @@ export default function CollectionTools({ enabled }) {
                 aria-busy={runningId === tool.id}
                 onClick={() => run(tool.id)}
               >
-                {runningId === tool.id ? copy.runningLabel : copy.runLabel}
+                {runningId === tool.id
+                  ? copy.runningLabel
+                  : tool.busy
+                    ? copy.inProgressLabel
+                    : copy.runLabel}
               </button>
             </li>
           ))}

@@ -4,15 +4,15 @@ import { FALLBACKS } from "../../content/common";
 function Kpi({ label, value, note, emphasize = false, pending = false }) {
   return (
     <div className="bg-white px-6 py-3">
-      <p className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{label}</p>
+      <p className="m-0 text-[0.68rem] font-medium text-[color:var(--admin-muted)]">{label}</p>
       <p
         className={`m-0 mt-1 text-[1.5rem] font-semibold tracking-[-0.03em] tabular-nums leading-none ${
-          emphasize ? "text-[#0f6e6a]" : "text-[#0f2a4a]"
+          emphasize ? "text-[color:var(--admin-accent,#0f6e6a)]" : "text-[color:var(--admin-ink)]"
         }`}
       >
         {pending ? FALLBACKS.dash : value}
       </p>
-      {note ? <p className="m-0 mt-1.5 text-[0.72rem] text-[#7a8d9a]">{note}</p> : null}
+      {note ? <p className="m-0 mt-1.5 text-[0.72rem] text-[color:var(--admin-muted)]">{note}</p> : null}
     </div>
   );
 }
@@ -25,7 +25,7 @@ export default function KpiRibbon({
 }) {
   return (
     <section
-      className="grid grid-cols-2 border-b border-[#e4ebf0] bg-[#e4ebf0] gap-px sm:grid-cols-3 xl:grid-cols-5"
+      className="grid grid-cols-2 border-b border-[color:var(--admin-rule)] bg-[color:var(--admin-rule)] gap-px sm:grid-cols-3 xl:grid-cols-5"
       aria-label={OVERVIEW.metrics.regionLabel}
       aria-busy={loading}
     >

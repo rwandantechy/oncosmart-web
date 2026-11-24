@@ -11,8 +11,8 @@ import { formatDate } from "../../utils/date";
 function Meta({ label, value }) {
   return (
     <div className="min-w-0">
-      <dt className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{label}</dt>
-      <dd className="m-0 mt-0.5 truncate text-[0.84rem] font-semibold tabular-nums text-[#0f2a4a]">
+      <dt className="m-0 text-[0.68rem] font-medium text-[color:var(--admin-muted)]">{label}</dt>
+      <dd className="m-0 mt-0.5 truncate text-[0.84rem] font-semibold tabular-nums text-[color:var(--admin-ink)]">
         {value}
       </dd>
     </div>
@@ -52,7 +52,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
 
   return (
     <section
-      className="border-b border-[#e4ebf0] bg-white px-6 py-3"
+      className="border-b border-[color:var(--admin-rule)] bg-white px-6 py-3"
       aria-label={copy.regionLabel}
       aria-busy={loading}
     >
@@ -71,7 +71,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
           {pendingReview > 0 ? (
             <a
               href={ROUTES.adminReview}
-              className="inline-flex h-8 items-center rounded-[3px] bg-[#0f2a4a] px-3 text-[0.75rem] font-semibold text-white no-underline hover:bg-[#183e6b]"
+              className="inline-flex h-8 items-center rounded-[3px] bg-[color:var(--admin-ink)] px-3 text-[0.75rem] font-semibold text-white no-underline hover:bg-[color:var(--admin-ink-soft)]"
             >
               {REVIEW.overviewNote(pendingReview)}
             </a>
@@ -80,7 +80,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
             type="button"
             onClick={download}
             disabled={downloadState === DOWNLOAD_STATES.working}
-            className="inline-flex h-8 items-center rounded-[3px] border border-[#c9d6e0] bg-white px-3 text-[0.75rem] font-semibold text-[#0f2a4a] hover:border-[#245c91] hover:text-[#245c91] disabled:opacity-60"
+            className="inline-flex h-8 items-center rounded-[3px] border border-[color:var(--color-border-control)] bg-white px-3 text-[0.75rem] font-semibold text-[color:var(--admin-ink)] hover:border-[color:var(--admin-ink-soft)] hover:text-[color:var(--admin-ink-soft)] disabled:opacity-60"
           >
             {downloadLabel}
           </button>

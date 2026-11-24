@@ -18,30 +18,30 @@ export default function ProductsBoard({ products, loading, onSelectProduct }) {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="h-7 animate-pulse bg-[#edf2f6]" />
+            <div key={index} className="h-7 animate-pulse bg-[color:var(--admin-track)]" />
           ))}
         </div>
       ) : items.length ? (
         <ol className="m-0 list-none p-0">
           {items.map((item, index) => (
-            <li key={item.product} className="border-b border-[#eef2f5] last:border-b-0">
+            <li key={item.product} className="border-b border-[color:var(--admin-rule)] last:border-b-0">
               <button
                 type="button"
                 onClick={() => onSelectProduct?.(item.product)}
-                className="flex w-full items-center gap-3 py-2 text-left hover:bg-[#f7fafc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#245c91]"
+                className="flex w-full items-center gap-3 py-2 text-left hover:bg-[color:var(--admin-surface)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--admin-ink-soft)]"
               >
-                <span className="w-4 shrink-0 text-[0.68rem] tabular-nums text-[#7a8d9a]">
+                <span className="w-4 shrink-0 text-[0.68rem] tabular-nums text-[color:var(--admin-muted)]">
                   {index + 1}
                 </span>
-                <span className="min-w-0 flex-1 truncate text-[0.8rem] text-[#0f2a4a]">
+                <span className="min-w-0 flex-1 truncate text-[0.8rem] text-[color:var(--admin-ink)]">
                   {item.product}
                 </span>
-                <span className="shrink-0 text-[0.78rem] font-semibold tabular-nums text-[#0f2a4a]">
+                <span className="shrink-0 text-[0.78rem] font-semibold tabular-nums text-[color:var(--admin-ink)]">
                   {item.records}
                 </span>
-                <span className="hidden h-1 w-12 overflow-hidden bg-[#e8eef2] sm:block">
+                <span className="hidden h-1 w-12 overflow-hidden bg-[color:var(--admin-track)] sm:block">
                   <span
-                    className="block h-full bg-[#0f2a4a]"
+                    className="block h-full bg-[color:var(--admin-ink)]"
                     style={{ width: `${(item.records / highest) * 100}%` }}
                   />
                 </span>
@@ -50,7 +50,7 @@ export default function ProductsBoard({ products, loading, onSelectProduct }) {
           ))}
         </ol>
       ) : (
-        <p className="m-0 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.products}</p>
+        <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{EMPTY_PANEL.products}</p>
       )}
     </Surface>
   );

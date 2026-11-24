@@ -29,7 +29,7 @@ export default function GeographyBoard({
           <button
             type="button"
             onClick={() => onSelectCountry?.("")}
-            className="text-[0.72rem] font-medium text-[#245c91] hover:underline"
+            className="text-[0.72rem] font-medium text-[color:var(--admin-ink-soft)] hover:underline"
           >
             {OVERVIEW.countries.clearFilter(selectedCountry)}
           </button>
@@ -37,7 +37,7 @@ export default function GeographyBoard({
       }
     >
       {loading ? (
-        <div className="aspect-[980/460] animate-pulse bg-[#e7eef3]" />
+        <div className="aspect-[980/460] animate-pulse bg-[color:var(--admin-track)]" />
       ) : chips.length ? (
         <>
           <WorldCountryMap
@@ -47,7 +47,7 @@ export default function GeographyBoard({
             size="compact"
           />
           <ul
-            className="m-0 flex list-none flex-wrap border-t border-[#e4ebf0] p-0"
+            className="m-0 flex list-none flex-wrap border-t border-[color:var(--admin-rule)] p-0"
             aria-label={OVERVIEW.countries.listLabel}
           >
             {chips.map((row) => {
@@ -55,20 +55,20 @@ export default function GeographyBoard({
               const country = withFallback(value);
               const active = selectedCountry === value;
               return (
-                <li key={country} className="border-b border-r border-[#e4ebf0]">
+                <li key={country} className="border-b border-r border-[color:var(--admin-rule)]">
                   <button
                     type="button"
                     onClick={() => onSelectCountry?.(active ? "" : value)}
                     aria-pressed={active}
                     className={`inline-flex h-8 items-center gap-2 px-3 text-[0.7rem] leading-none ${
                       active
-                        ? "bg-[#071f49] font-semibold text-white"
-                        : "bg-white text-[#0f2a4a] hover:bg-[#f3f6f8]"
+                        ? "bg-[color:var(--admin-ink)] font-semibold text-white"
+                        : "bg-white text-[color:var(--admin-ink)] hover:bg-[color:var(--admin-surface)]"
                     }`}
                   >
                     <span>{country}</span>
                     <span
-                      className={`tabular-nums ${active ? "text-white/70" : "text-[#7a8d9a]"}`}
+                      className={`tabular-nums ${active ? "text-white/70" : "text-[color:var(--admin-muted)]"}`}
                     >
                       {row.records}
                     </span>
@@ -79,7 +79,7 @@ export default function GeographyBoard({
           </ul>
         </>
       ) : (
-        <p className="m-0 px-6 py-3 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
+        <p className="m-0 px-6 py-3 text-[0.8rem] text-[color:var(--admin-muted)]">{EMPTY_PANEL.countries}</p>
       )}
     </Surface>
   );

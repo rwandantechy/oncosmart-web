@@ -6,7 +6,7 @@ export default function SiteHeader({ compact = false }) {
   const path = window.location.pathname;
 
   return (
-    <header className={compact ? "compact-header" : ""}>
+    <header className={`site-header${compact ? " compact-header" : ""}`}>
       <div className="container header-inner">
         <a className="site-brand" href={ROUTES.home} aria-label={BRAND.publicHomeLabel}>
           <img src={ASSETS.logo} alt={BRAND.publicName} />

@@ -11,18 +11,18 @@ export default function AdminLayout({ active, icon, title, warning, children }) 
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar" aria-label="Workspace">
-        <header className="sidebar-brand">
+        <div className="sidebar-brand">
           <img src={ASSETS.logoOnDark} alt={BRAND.productName} />
           <p className="sidebar-brand-tagline">{BRAND.workspaceTagline}</p>
-        </header>
+        </div>
 
         <div className="sidebar-body">
           <WorkspaceNav active={active} />
         </div>
 
-        <footer className="sidebar-account" aria-label={ACCOUNT.statusTitle}>
+        <div className="sidebar-account" aria-label={ACCOUNT.statusTitle}>
           <AccountMenu />
-        </footer>
+        </div>
       </aside>
 
       <main id={MAIN_CONTENT_ID} className="admin-main">

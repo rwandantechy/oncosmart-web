@@ -24,7 +24,7 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
           {Array.from({ length: 10 }).map((_, index) => (
             <div
               key={index}
-              className="flex-1 animate-pulse bg-[#edf2f6]"
+              className="flex-1 animate-pulse bg-[color:var(--admin-track)]"
               style={{ height: `${35 + (index % 5) * 12}%` }}
             />
           ))}
@@ -49,24 +49,24 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
                     const range = monthRange(item.month);
                     if (range) onSelectMonth?.(range);
                   }}
-                  className="group flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1 px-0.5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#245c91]"
+                  className="group flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-1 px-0.5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--admin-ink-soft)]"
                 >
-                  <span className="text-[0.65rem] font-medium tabular-nums text-[#6a7f8f]">
+                  <span className="text-[0.65rem] font-medium tabular-nums text-[color:var(--admin-muted)]">
                     {item.records}
                   </span>
                   <span
-                    className="w-full max-w-[20px] bg-[#071f49] transition group-hover:bg-[#245c91]"
+                    className="w-full max-w-[20px] bg-[color:var(--admin-ink)] transition group-hover:bg-[color:var(--admin-ink-soft)]"
                     style={{ height: barHeight }}
                   />
-                  <span className="w-full truncate text-center text-[0.62rem] text-[#7a8d9a]">
+                  <span className="w-full truncate text-center text-[0.62rem] text-[color:var(--admin-muted)]">
                     {item.month.slice(MONTH_LABEL_OFFSET)}
                   </span>
                 </button>
               );
             })}
           </div>
-          <p className="m-0 text-[0.72rem] leading-5 text-[#667988]">
-            <strong className="font-semibold text-[#0f2a4a]">
+          <p className="m-0 text-[0.72rem] leading-5 text-[color:var(--admin-muted)]">
+            <strong className="font-semibold text-[color:var(--admin-ink)]">
               {timeline?.records_in_full_range ?? 0}
             </strong>
             {OVERVIEW.timeline.footnoteRange(
@@ -77,7 +77,7 @@ export default function TimelineBoard({ timeline, loading, onSelectMonth }) {
           </p>
         </>
       ) : (
-        <p className="m-0 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.timeline}</p>
+        <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{EMPTY_PANEL.timeline}</p>
       )}
     </Surface>
   );

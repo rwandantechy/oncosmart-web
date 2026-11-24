@@ -65,7 +65,7 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-4">
         <ErrorBanner message={error || panelError} />
 
-        <div className="overview-board overflow-hidden border border-[#d5e0e8] bg-[#d5e0e8]">
+        <div className="overview-board overflow-hidden border border-[color:var(--admin-rule)] bg-[color:var(--admin-rule)]">
           <CommandBar
             summary={summary}
             dataset={dataset}
@@ -113,7 +113,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="border-t border-[#d5e0e8]">
+          <div className="border-t border-[color:var(--admin-rule)]">
             <RecordsReview ref={recordsRef} sources={data.sources} onError={setPanelError} />
           </div>
         </div>

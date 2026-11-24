@@ -41,29 +41,33 @@ export default function ResearchAssistantPage() {
       title={ASSISTANT.title}
       warning={ASSISTANT.warning}
     >
-      <section className="assistant-page">
-        <div className="assistant-hero">
-          <div>
-            <h2>{ASSISTANT.hero.heading}</h2>
-            <p>{ASSISTANT.hero.intro}</p>
+      <section className="assistant-page" aria-label={ASSISTANT.title}>
+        <div className="assistant-shell">
+          <div className="assistant-rail">
+            <div className={`assistant-status ${statusClass}`}>
+              <i />
+              <span>
+                {statusLabel}
+                <small>
+                  {aiReady ? ASSISTANT.status.groundedNote : ASSISTANT.status.readOnlyNote}
+                </small>
+              </span>
+            </div>
+            {messages.length > 0 ? (
+              <button type="button" className="thread-reset" onClick={startOver}>
+                {ASSISTANT.actions.startOver}
+              </button>
+            ) : null}
           </div>
-          <div className={`assistant-status ${statusClass}`}>
-            <i />
-            {statusLabel}
-            <small>
-              {aiReady ? ASSISTANT.status.groundedNote : ASSISTANT.status.readOnlyNote}
-            </small>
-          </div>
-        </div>
-        <div className="assistant-panel">
+
           <AssistantThread
             messages={messages}
             loading={loading}
             onSuggestion={askText}
             onEdit={edit}
             onRemove={remove}
-            onStartOver={startOver}
           />
+
           <AssistantComposer
             question={question}
             loading={loading}

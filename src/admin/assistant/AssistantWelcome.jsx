@@ -4,7 +4,12 @@ import { ASSISTANT } from "../../content/admin";
 export default function AssistantWelcome({ onSelect }) {
   return (
     <div className="assistant-welcome">
-      <p className="eyebrow">{ASSISTANT.welcome.startersLabel}</p>
+      <div className="assistant-mark" aria-hidden="true">
+        <Icon name="assistant" />
+      </div>
+      <h2>{ASSISTANT.welcome.greeting}</h2>
+      <p>{ASSISTANT.welcome.intro}</p>
+      <p className="assistant-welcome-label">{ASSISTANT.welcome.startersLabel}</p>
       <div className="suggestion-grid">
         {ASSISTANT.suggestions.map((suggestion) => (
           <button key={suggestion} type="button" onClick={() => onSelect(suggestion)}>

@@ -44,8 +44,8 @@ export const WORKSPACE_NAV_GROUPS = [
       },
       {
         id: WORKSPACE_SECTIONS.assistant,
-        label: "Research assistant",
-        compactLabel: "Assistant",
+        label: "Ask",
+        compactLabel: "Ask",
         href: ROUTES.adminAssistant,
         icon: "assistant",
       },

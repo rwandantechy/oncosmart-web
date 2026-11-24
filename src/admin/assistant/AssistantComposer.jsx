@@ -14,45 +14,56 @@ export default function AssistantComposer({
     if (event.key === "Escape" && question) {
       event.preventDefault();
       onClearDraft();
+      return;
+    }
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (!loading && question.trim()) onSubmit(event);
     }
   }
 
   return (
     <form className="assistant-composer" onSubmit={onSubmit}>
-      <input
-        value={question}
-        onChange={(event) => onQuestionChange(event.target.value)}
-        onKeyDown={onKeyDown}
-        placeholder={ASSISTANT.composer.placeholder}
-        maxLength={RESEARCH_QUESTION_MAX_LENGTH}
-        aria-label={ASSISTANT.composer.fieldLabel}
-        disabled={loading}
-      />
-      {question && !loading ? (
-        <IconButton
-          className="composer-clear"
-          name="close"
-          label={ASSISTANT.actions.clearDraft}
-          onClick={onClearDraft}
+      <div className="composer-field">
+        <textarea
+          value={question}
+          onChange={(event) => onQuestionChange(event.target.value)}
+          onKeyDown={onKeyDown}
+          placeholder={ASSISTANT.composer.placeholder}
+          maxLength={RESEARCH_QUESTION_MAX_LENGTH}
+          aria-label={ASSISTANT.composer.fieldLabel}
+          disabled={loading}
+          rows={2}
         />
-      ) : null}
-      {loading ? (
-        <IconButton
-          className="composer-stop"
-          name="stop"
-          label={ASSISTANT.actions.stop}
-          onClick={onStop}
-        />
-      ) : (
-        <IconButton
-          type="submit"
-          name="send"
-          label={ASSISTANT.composer.sendLabel}
-          disabled={!question.trim()}
-          className="composer-send"
-        />
-      )}
-      <small>{ASSISTANT.composer.disclaimer}</small>
+        {question && !loading ? (
+          <IconButton
+            className="composer-clear"
+            name="close"
+            label={ASSISTANT.actions.clearDraft}
+            onClick={onClearDraft}
+          />
+        ) : null}
+        {loading ? (
+          <IconButton
+            className="composer-stop"
+            name="stop"
+            label={ASSISTANT.actions.stop}
+            onClick={onStop}
+          />
+        ) : (
+          <IconButton
+            type="submit"
+            name="send"
+            label={ASSISTANT.composer.sendLabel}
+            disabled={!question.trim()}
+            className="composer-send"
+          />
+        )}
+      </div>
+      <div className="composer-meta">
+        <small>{ASSISTANT.composer.hint}</small>
+        <small>{ASSISTANT.composer.disclaimer}</small>
+      </div>
     </form>
   );
 }

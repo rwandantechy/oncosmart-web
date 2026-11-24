@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Icon from "../../components/Icon";
 import { ASSISTANT } from "../../content/admin";
 import AssistantWelcome from "./AssistantWelcome";
@@ -9,19 +10,17 @@ export default function AssistantThread({
   onSuggestion,
   onEdit,
   onRemove,
-  onStartOver,
 }) {
+  const endRef = useRef(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, loading]);
+
   return (
-    <div className="assistant-thread">
-      {messages.length > 0 && (
-        <div className="assistant-toolbar">
-          <button type="button" className="thread-reset" onClick={onStartOver}>
-            <Icon name="restart" />
-            {ASSISTANT.actions.startOver}
-          </button>
-        </div>
-      )}
-      {!messages.length && !loading && <AssistantWelcome onSelect={onSuggestion} />}
+    <div className="assistant-thread" aria-live="polite">
+      {!messages.length && !loading ? <AssistantWelcome onSelect={onSuggestion} /> : null}
+
       {messages.map((message) => (
         <ChatExchange
           key={message.id}
@@ -33,18 +32,21 @@ export default function AssistantThread({
           onSuggestion={onSuggestion}
         />
       ))}
-      {loading && (
-        <div className="chat-answer">
-          <div className="assistant-mark small">
+
+      {loading ? (
+        <div className="chat-row chat-row--assistant">
+          <div className="assistant-mark small" aria-hidden="true">
             <Icon name="assistant" />
           </div>
-          <div className="typing-indicator" role="status">
+          <div className="chat-bubble chat-bubble--assistant typing-indicator" role="status">
             <i />
             <i />
-            <i /> <span>{ASSISTANT.typingLabel}</span>
+            <i />
+            <span>{ASSISTANT.typingLabel}</span>
           </div>
         </div>
-      )}
+      ) : null}
+      <div ref={endRef} />
     </div>
   );
 }

@@ -35,5 +35,6 @@ export const DRUGS = {
     openLabel: "NCI page",
   },
   countLabel: "{shown} of {total} drugs",
+  storageLabel: "Stored in the research database",
   sourceLabel: "View full NCI list",
 };

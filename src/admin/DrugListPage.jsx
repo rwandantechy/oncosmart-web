@@ -37,6 +37,7 @@ export default function DrugListPage() {
             {DRUGS.countLabel
               .replace("{shown}", String(list.shown))
               .replace("{total}", String(list.total))}
+            {list.storage === "mongodb" ? ` · ${DRUGS.storageLabel}` : ""}
           </p>
           {list.sourceUrl ? (
             <a href={list.sourceUrl} target="_blank" rel="noopener noreferrer">

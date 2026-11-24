@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { DRUGS } from "../../content/drugs";
 import { fetchDrugs } from "../../services/drugsService";
 
-const EMPTY = { drugs: [], source_url: "", count: 0 };
+const EMPTY = { drugs: [], source_url: "", count: 0, storage: "", updated_at: "" };
 
 export default function useDrugList() {
   const [payload, setPayload] = useState(EMPTY);
@@ -22,6 +22,8 @@ export default function useDrugList() {
           source_url: data.source_url || "",
           source: data.source || "",
           count: data.count || 0,
+          storage: data.storage || "",
+          updated_at: data.updated_at || "",
         });
         setError("");
       })
@@ -64,6 +66,8 @@ export default function useDrugList() {
     error,
     sourceUrl: payload.source_url,
     source: payload.source,
+    storage: payload.storage || "",
+    updatedAt: payload.updated_at || "",
     total: payload.count || payload.drugs.length,
     shown: filtered.length,
     drugs: filtered,

@@ -70,9 +70,17 @@ export const SETTINGS = {
     mismatchError: AUTH_SHARED.mismatchError,
   },
   tools: {
+    pageTitle: "Collection tools",
+    pageIcon: "collection",
+    warning: {
+      strong: "Admin collection",
+      text: "These controls start the same GitHub Actions workflows used for scheduled scrapes.",
+      linkLabel: "Tools",
+      href: `#${ANCHOR_IDS.collectionTools}`,
+    },
     id: ANCHOR_IDS.collectionTools,
     eyebrow: "COLLECTION",
-    title: "Collection tools",
+    title: "Run collection",
     note: "Starts the same GitHub Actions workflows used for scheduled collection. Admins only.",
     loadError: "Collection tools could not be loaded.",
     runError: "That collection job could not be started.",

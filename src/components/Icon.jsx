@@ -100,6 +100,13 @@ const ICON_PATHS = {
       <path d="M9 9h6M9 13h4" />
     </>
   ),
+  collection: (
+    <>
+      <path d="M4 12a8 8 0 1 0 2.3-5.7" />
+      <path d="M4 4v6h6" />
+      <path d="M12 8v4l3 2" />
+    </>
+  ),
   linkedin: (
     <path
       fill="currentColor"

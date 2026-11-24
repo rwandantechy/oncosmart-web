@@ -11,6 +11,7 @@ export const ROUTES = {
   adminOverview: "/admin",
   adminAssistant: "/admin/assistant",
   adminReview: "/admin/review",
+  adminCollection: "/admin/collection",
   adminSettings: "/admin/settings",
 };
 
@@ -37,6 +38,7 @@ export const PAGES = {
   adminOverview: "adminOverview",
   adminAssistant: "adminAssistant",
   adminReview: "adminReview",
+  adminCollection: "adminCollection",
   adminSettings: "adminSettings",
 };
 
@@ -49,6 +51,7 @@ const PAGE_BY_PATH = {
   [ROUTES.signup]: PAGES.signup,
   [ROUTES.adminAssistant]: PAGES.adminAssistant,
   [ROUTES.adminReview]: PAGES.adminReview,
+  [ROUTES.adminCollection]: PAGES.adminCollection,
   [ROUTES.adminSettings]: PAGES.adminSettings,
   [ROUTES.adminOverview]: PAGES.adminOverview,
 };
@@ -58,6 +61,7 @@ export const PAGES_REQUIRING_SESSION = [
   PAGES.adminOverview,
   PAGES.adminAssistant,
   PAGES.adminReview,
+  PAGES.adminCollection,
   PAGES.adminSettings,
 ];
 

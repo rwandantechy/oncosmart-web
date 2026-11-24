@@ -24,6 +24,7 @@ export const WORKSPACE_SECTIONS = {
   overview: "overview",
   assistant: "assistant",
   review: "review",
+  collection: "collection",
   settings: "settings",
   search: "search",
   publicView: "publicView",
@@ -55,6 +56,13 @@ export const WORKSPACE_NAV_GROUPS = [
         compactLabel: "Review",
         href: ROUTES.adminReview,
         icon: "review",
+      },
+      {
+        id: WORKSPACE_SECTIONS.collection,
+        label: "Collection tools",
+        compactLabel: "Collect",
+        href: ROUTES.adminCollection,
+        icon: "collection",
       },
       {
         id: WORKSPACE_SECTIONS.settings,

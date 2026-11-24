@@ -1,3 +1,4 @@
+import CollectionToolsPage from "./admin/CollectionToolsPage";
 import DashboardPage from "./admin/DashboardPage";
 import ResearchAssistantPage from "./admin/ResearchAssistantPage";
 import ReviewPage from "./admin/ReviewPage";
@@ -36,6 +37,7 @@ const PAGE_VIEWS = {
   [PAGES.patients]: () => <ContentPage page={PAGES.patients} />,
   [PAGES.adminAssistant]: () => <ResearchAssistantPage />,
   [PAGES.adminReview]: () => <ReviewPage />,
+  [PAGES.adminCollection]: () => <CollectionToolsPage />,
   [PAGES.adminSettings]: () => <SettingsPage />,
   [PAGES.adminOverview]: () => <DashboardPage />,
   [PAGES.home]: () => <SearchPage />,

@@ -79,7 +79,7 @@ export default function GeographyBoard({
           </ul>
         </>
       ) : (
-        <p className="m-0 px-4 py-3 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
+        <p className="m-0 px-6 py-3 text-[0.8rem] text-[#667988]">{EMPTY_PANEL.countries}</p>
       )}
     </Surface>
   );

@@ -52,7 +52,7 @@ export default function CommandBar({ summary, dataset, pendingReview, loading, o
 
   return (
     <section
-      className="border-b border-[#e4ebf0] bg-white px-4 py-3"
+      className="border-b border-[#e4ebf0] bg-white px-6 py-3"
       aria-label={copy.regionLabel}
       aria-busy={loading}
     >

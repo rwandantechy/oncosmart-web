@@ -29,54 +29,61 @@ export const WORKSPACE_SECTIONS = {
   publicView: "publicView",
 };
 
-export const WORKSPACE_NAV = [
-  { type: "section", label: "Workspace" },
+/** Grouped workspace chrome — primary tools stay in the mobile bar; open links do not. */
+export const WORKSPACE_NAV_GROUPS = [
   {
-    type: "link",
-    id: WORKSPACE_SECTIONS.overview,
-    label: "Overview",
-    href: ROUTES.adminOverview,
-    icon: "overview",
+    id: "workspace",
+    label: "Workspace",
+    tier: "primary",
+    items: [
+      {
+        id: WORKSPACE_SECTIONS.overview,
+        label: "Overview",
+        href: ROUTES.adminOverview,
+        icon: "overview",
+      },
+      {
+        id: WORKSPACE_SECTIONS.assistant,
+        label: "Research assistant",
+        compactLabel: "Assistant",
+        href: ROUTES.adminAssistant,
+        icon: "assistant",
+      },
+      {
+        id: WORKSPACE_SECTIONS.review,
+        label: "Notice review",
+        compactLabel: "Review",
+        href: ROUTES.adminReview,
+        icon: "review",
+      },
+      {
+        id: WORKSPACE_SECTIONS.settings,
+        label: "Settings",
+        href: ROUTES.adminSettings,
+        icon: "settings",
+      },
+    ],
   },
   {
-    type: "link",
-    id: WORKSPACE_SECTIONS.assistant,
-    label: "Research assistant",
-    compactLabel: "Assistant",
-    href: ROUTES.adminAssistant,
-    icon: "assistant",
-  },
-  {
-    type: "link",
-    id: WORKSPACE_SECTIONS.review,
-    label: "Notice review",
-    compactLabel: "Review",
-    href: ROUTES.adminReview,
-    icon: "review",
-  },
-  {
-    type: "link",
-    id: WORKSPACE_SECTIONS.settings,
-    label: "Settings",
-    href: ROUTES.adminSettings,
-    icon: "settings",
-  },
-  { type: "section", label: "Explore", spaced: true },
-  {
-    type: "link",
-    id: WORKSPACE_SECTIONS.search,
-    label: "Alert search",
-    href: ROUTES.home,
-    icon: "search",
-    bar: false,
-  },
-  {
-    type: "link",
-    id: WORKSPACE_SECTIONS.publicView,
-    label: "Public view",
-    href: ROUTES.home,
-    icon: "external",
-    bar: false,
+    id: "open",
+    label: "Open",
+    tier: "secondary",
+    items: [
+      {
+        id: WORKSPACE_SECTIONS.search,
+        label: "Alert search",
+        href: ROUTES.home,
+        icon: "search",
+        external: true,
+      },
+      {
+        id: WORKSPACE_SECTIONS.publicView,
+        label: "Public site",
+        href: ROUTES.home,
+        icon: "external",
+        external: true,
+      },
+    ],
   },
 ];
 

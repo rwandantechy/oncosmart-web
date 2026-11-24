@@ -154,7 +154,7 @@
 
   /* Single source of truth for the responsive layout frame. */
   --page-gutter: 1.5rem;
-  --sidebar-width: 260px;
+  --sidebar-width: 268px;
   --admin-content-max: 1440px;
   --card-min: 12.5rem;
   --panel-min: 20rem;
@@ -1285,123 +1285,173 @@ a {
   --admin-inset: calc(var(--sidebar-width) - 2px + var(--admin-slack));
 }
 .admin-sidebar {
+  --sb-pad-x: 1rem;
+  --sb-ink: #c8d5e0;
+  --sb-ink-quiet: #8fa3b3;
+  --sb-ink-label: #7d93a4;
+  --sb-rule: rgba(255, 255, 255, 0.1);
+  --sb-hover: rgba(255, 255, 255, 0.07);
+  --sb-active: rgba(255, 255, 255, 0.11);
+  --sb-focus: rgba(255, 255, 255, 0.45);
+
   position: fixed;
   inset: 0 auto 0 0;
   z-index: 20;
   width: var(--sidebar-width);
+  overflow-x: hidden;
   overflow-y: auto;
   background: #071f49;
-  color: var(--color-text-sidebar);
-  padding: 1.5rem 0 1.15rem;
+  color: var(--sb-ink);
+  padding: 0;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   border-right: 1px solid rgba(255, 255, 255, 0.06);
 }
-.brand-mark {
-  align-items: flex-start;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.95rem;
-  gap: 0.5rem;
-  margin: 0 1.25rem 1.25rem;
-  padding: 0 0 1.15rem;
+
+/* Zone 1 — brand */
+.sidebar-brand {
+  flex: 0 0 auto;
+  margin: 0 var(--sb-pad-x);
+  padding: 1.35rem 0.35rem 1.15rem;
+  border-bottom: 1px solid var(--sb-rule);
 }
-.brand-mark img {
+.sidebar-brand img {
   display: block;
+  width: 164px;
   height: auto;
   object-fit: contain;
-  width: 168px;
 }
-.brand-mark small {
-  color: #9bb0c0;
-  display: block;
+.sidebar-brand-tagline {
+  margin: 0.55rem 0 0;
+  color: var(--sb-ink-quiet);
   font-size: 0.68rem;
   font-weight: 500;
   line-height: 1.35;
 }
+
+/* Zone 2 — navigation */
 .sidebar-body {
   flex: 1 1 auto;
   min-height: 0;
-  padding: 0 0.85rem;
-}
-.sidebar-label {
-  color: #8aa0b0;
-  font-size: 0.68rem;
-  font-weight: 600;
-  margin: 0 0 0.4rem;
-  padding: 0 0.65rem;
-}
-.sidebar-section-label {
-  margin-top: 1.35rem;
+  padding: 1rem var(--sb-pad-x) 0.75rem;
 }
 .workspace-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+.nav-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.nav-group-label {
+  margin: 0 0 0.45rem;
+  padding: 0 0.7rem;
+  color: var(--sb-ink-label);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.nav-group-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  gap: 0.15rem;
+  gap: 0.12rem;
 }
 .side-link-narrow {
   display: none;
 }
 .side-link {
   align-items: center;
-  color: #c5d3de;
+  color: var(--sb-ink);
   display: flex;
   gap: 0.7rem;
   text-decoration: none;
-  padding: 0.65rem 0.7rem;
+  padding: 0.62rem 0.7rem;
   border-radius: 3px;
   margin: 0;
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.25;
   transition:
-    background 0.15s ease,
-    color 0.15s ease;
+    background 0.12s ease,
+    color 0.12s ease;
+}
+.side-link-label {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.side-link-wide,
+.side-link-narrow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .menu-icon {
   background: transparent;
   border: 0;
   border-radius: 0;
-  color: #8fa9b8;
+  color: var(--sb-ink-quiet);
   flex: 0 0 16px;
   height: 16px;
   padding: 0;
   opacity: 1;
   width: 16px;
 }
-.side-link.active,
 .side-link:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--sb-hover);
   color: #fff;
 }
-.side-link.active {
-  background: rgba(255, 255, 255, 0.11);
+.side-link.is-active {
+  background: var(--sb-active);
   box-shadow: inset 2px 0 #fff;
+  color: #fff;
   font-weight: 600;
 }
-.side-link.active .menu-icon,
+.side-link.is-active .menu-icon,
 .side-link:hover .menu-icon {
   color: #fff;
-  opacity: 1;
 }
 .side-link:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline: 2px solid var(--sb-focus);
   outline-offset: 2px;
 }
-.sidebar-footer {
-  align-items: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  gap: 0.45rem;
-  margin: 1.25rem 0.85rem 0;
-  padding: 0.95rem 0.15rem 0;
-  font-size: 0.75rem;
+
+/* Secondary “Open” tier — quieter, leaves the research chrome */
+.nav-group--secondary {
+  padding-top: 0.15rem;
+  border-top: 1px solid var(--sb-rule);
+}
+.nav-group--secondary .nav-group-label {
+  margin-top: 0.95rem;
+}
+.nav-group--secondary .side-link {
+  color: var(--sb-ink-quiet);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+.nav-group--secondary .side-link:hover,
+.nav-group--secondary .side-link.is-active {
+  color: #fff;
+}
+
+/* Zone 3 — account dock */
+.sidebar-account {
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding: 0.85rem var(--sb-pad-x) 1rem;
+  border-top: 1px solid var(--sb-rule);
 }
 .account-menu {
   min-width: 0;
   position: relative;
+  width: 100%;
 }
 .account-trigger {
   align-items: center;
@@ -1413,17 +1463,18 @@ a {
   display: flex;
   gap: 0.65rem;
   min-width: 0;
-  padding: 0.45rem 0.5rem;
+  padding: 0.5rem 0.55rem;
   text-align: left;
   width: 100%;
 }
 .account-trigger:hover,
 .account-trigger:focus-visible {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--sb-hover);
   outline: 0;
 }
 .account-copy {
   min-width: 0;
+  flex: 1 1 auto;
 }
 .account-copy strong,
 .account-copy small {
@@ -1432,14 +1483,20 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.account-copy strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
 .account-copy small {
   color: var(--color-text-account-small);
+  font-size: 0.65rem;
   margin-top: 0.12rem;
 }
 .account-chevron {
   color: var(--color-text-brand-small);
+  flex: 0 0 14px;
   height: 14px;
-  margin-left: 0.35rem;
+  margin-left: 0.15rem;
   width: 14px;
 }
 .account-popover {
@@ -1509,14 +1566,6 @@ a {
 }
 .account-popover button small {
   font-size: 0.6rem;
-}
-.sidebar-footer .status-dot {
-  background: var(--color-teal-status-online);
-  border: 2px solid var(--color-navy);
-  border-radius: 50%;
-  height: 6px;
-  margin: 0 0.1rem 0 auto;
-  width: 6px;
 }
 .avatar {
   display: grid;
@@ -2940,41 +2989,35 @@ a {
 }
 @media (max-width: 800px) {
   .admin-shell {
-    --sidebar-width: 232px;
+    --sidebar-width: 240px;
   }
   .admin-sidebar {
-    padding: 1.25rem 0 1rem;
-  }
-  .brand-mark {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-  .sidebar-body {
-    padding: 0 0.7rem;
-  }
-  .sidebar-footer {
-    margin-left: 0.7rem;
-    margin-right: 0.7rem;
+    --sb-pad-x: 0.85rem;
   }
 }
 @media (max-width: 560px) {
   .admin-shell {
     display: block;
   }
-  /* The sidebar becomes a bottom bar, so it must not clip the account popover. */
+  /* Bottom bar: primary workspace tools only; account lives in the topbar. */
   .admin-sidebar {
-    align-items: center;
+    --sb-pad-x: 0.35rem;
+    align-items: stretch;
     bottom: 0;
     flex-direction: row;
-    gap: 0.35rem;
+    gap: 0;
     height: 68px;
     inset: auto 0 0;
     overflow: visible;
-    padding: 0.45rem 0.35rem;
+    padding: 0.35rem;
     width: 100%;
+    border-right: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .brand-mark,
-  .sidebar-label {
+  .sidebar-brand,
+  .sidebar-account,
+  .nav-group--secondary,
+  .nav-group-label {
     display: none;
   }
   .sidebar-body {
@@ -2983,26 +3026,37 @@ a {
     min-width: 0;
     padding: 0;
   }
-  .sidebar-footer {
-    display: none;
-  }
-  .side-link-extra {
-    display: none;
-  }
   .workspace-nav {
     align-items: stretch;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    gap: 0.15rem;
+    justify-content: space-around;
+    min-width: 0;
+  }
+  .nav-group--primary {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .nav-group--primary .nav-group-list {
     display: flex;
     flex: 1 1 auto;
     gap: 0.15rem;
     justify-content: space-around;
     min-width: 0;
   }
+  .nav-group--primary .nav-group-list > li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
   .side-link {
     align-items: center;
-    flex: 1 1 0;
     flex-direction: column;
     font-size: 0.62rem;
     gap: 0.2rem;
+    height: 100%;
     justify-content: center;
     margin: 0;
     min-width: 0;
@@ -3023,8 +3077,8 @@ a {
     padding: 0;
     width: 16px;
   }
-  .side-link.active {
-    box-shadow: inset 0 2px var(--color-teal-bright);
+  .side-link.is-active {
+    box-shadow: inset 0 2px #fff;
   }
   .admin-main {
     margin-left: 0;
@@ -3099,17 +3153,21 @@ a {
 
 /* Landscape phones keep the full sidebar, so trim it to fit a short viewport. */
 @media (min-width: 561px) and (max-height: 460px) {
-  .brand-mark {
-    padding-bottom: 0.85rem;
+  .sidebar-brand {
+    padding-top: 0.85rem;
+    padding-bottom: 0.75rem;
   }
-  .brand-mark img {
+  .sidebar-brand img {
     width: 132px;
   }
-  .brand-mark small {
+  .sidebar-brand-tagline {
     display: none;
   }
-  .sidebar-section-label {
-    margin-top: 0.5rem;
+  .workspace-nav {
+    gap: 0.85rem;
+  }
+  .nav-group--secondary .nav-group-label {
+    margin-top: 0.55rem;
   }
   .side-link {
     padding-block: 0.44rem;

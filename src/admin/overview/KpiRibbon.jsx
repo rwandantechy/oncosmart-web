@@ -3,7 +3,7 @@ import { FALLBACKS } from "../../content/common";
 
 function Kpi({ label, value, note, emphasize = false, pending = false }) {
   return (
-    <div className="bg-white px-4 py-3">
+    <div className="bg-white px-6 py-3">
       <p className="m-0 text-[0.68rem] font-medium text-[#6a7f8f]">{label}</p>
       <p
         className={`m-0 mt-1 text-[1.5rem] font-semibold tracking-[-0.03em] tabular-nums leading-none ${

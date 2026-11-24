@@ -10,20 +10,19 @@ import WorkspaceNav from "./WorkspaceNav";
 export default function AdminLayout({ active, icon, title, warning, children }) {
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar" aria-label="Workspace navigation">
-        <div className="brand-mark">
+      <aside className="admin-sidebar" aria-label="Workspace">
+        <header className="sidebar-brand">
           <img src={ASSETS.logoOnDark} alt={BRAND.productName} />
-          <small>{BRAND.workspaceTagline}</small>
-        </div>
+          <p className="sidebar-brand-tagline">{BRAND.workspaceTagline}</p>
+        </header>
 
         <div className="sidebar-body">
           <WorkspaceNav active={active} />
         </div>
 
-        <div className="sidebar-footer">
+        <footer className="sidebar-account" aria-label={ACCOUNT.statusTitle}>
           <AccountMenu />
-          <span className="status-dot" title={ACCOUNT.statusTitle} aria-hidden="true" />
-        </div>
+        </footer>
       </aside>
 
       <main id={MAIN_CONTENT_ID} className="admin-main">

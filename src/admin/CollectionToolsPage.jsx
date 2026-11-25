@@ -16,11 +16,16 @@ export default function CollectionToolsPage() {
       active={WORKSPACE_SECTIONS.collection}
       icon={copy.pageIcon}
       title={copy.pageTitle}
-      warning={copy.warning}
+      warning={{
+        strong: "Admin controls",
+        text: "Switch AI providers and start collection workflows from this page.",
+        linkLabel: "AI",
+        href: `#${SETTINGS.ai.id}`,
+      }}
     >
       <section className="settings-grid settings-grid--tools">
+        <AiProviders />
         <CollectionTools enabled={isAdmin} />
-        <AiProviders enabled={isAdmin} />
       </section>
     </AdminLayout>
   );

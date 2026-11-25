@@ -2,9 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { SETTINGS } from "../../content/settings";
 import { fetchAdminAi, saveAdminAi } from "../../services/adminAiService";
 
-export default function useAiProviders({ enabled }) {
-  const [loading, setLoading] = useState(Boolean(enabled));
+const FORBIDDEN = 403;
+
+export default function useAiProviders() {
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [forbidden, setForbidden] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
   const [payload, setPayload] = useState(null);
@@ -12,9 +15,9 @@ export default function useAiProviders({ enabled }) {
   const [fallback, setFallback] = useState("");
 
   const load = useCallback(async () => {
-    if (!enabled) return;
     setLoading(true);
     setError("");
+    setForbidden(false);
     try {
       const data = await fetchAdminAi({ defaultError: SETTINGS.ai.loadError });
       setPayload(data);
@@ -22,11 +25,16 @@ export default function useAiProviders({ enabled }) {
       setFallback(data.fallback || "");
     } catch (err) {
       setPayload(null);
-      setError(err.message || SETTINGS.ai.loadError);
+      if (err.status === FORBIDDEN) {
+        setForbidden(true);
+        setError("");
+      } else {
+        setError(err.message || SETTINGS.ai.loadError);
+      }
     } finally {
       setLoading(false);
     }
-  }, [enabled]);
+  }, []);
 
   useEffect(() => {
     load();
@@ -35,6 +43,15 @@ export default function useAiProviders({ enabled }) {
   const configuredOptions = useMemo(
     () => (payload?.options || []).filter((option) => option.configured),
     [payload],
+  );
+
+  const choosePrimary = useCallback(
+    (next) => {
+      setPrimary(next);
+      setStatus("");
+      setFallback((current) => (current === next ? "" : current));
+    },
+    [],
   );
 
   const save = useCallback(async () => {
@@ -54,6 +71,7 @@ export default function useAiProviders({ enabled }) {
       setFallback(data.fallback || "");
       setStatus(SETTINGS.ai.saveSuccess);
     } catch (err) {
+      if (err.status === FORBIDDEN) setForbidden(true);
       setError(err.message || SETTINGS.ai.saveError);
     } finally {
       setSaving(false);
@@ -63,13 +81,14 @@ export default function useAiProviders({ enabled }) {
   return {
     loading,
     saving,
+    forbidden,
     error,
     status,
     payload,
     primary,
     fallback,
     configuredOptions,
-    setPrimary,
+    choosePrimary,
     setFallback,
     save,
   };

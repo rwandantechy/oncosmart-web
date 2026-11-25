@@ -8,17 +8,12 @@ function statusTone(option) {
   return "bad";
 }
 
-export default function AiProviders({ enabled }) {
-  const ai = useAiProviders({ enabled });
+export default function AiProviders() {
+  const ai = useAiProviders();
   const copy = SETTINGS.ai;
-
-  if (!enabled) {
-    return (
-      <Panel id={copy.id} eyebrow={copy.eyebrow} title={copy.title} note={copy.note}>
-        <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{copy.adminRequired}</p>
-      </Panel>
-    );
-  }
+  const dirty =
+    ai.payload &&
+    (ai.primary !== ai.payload.primary || (ai.fallback || "") !== (ai.payload.fallback || ""));
 
   return (
     <Panel id={copy.id} eyebrow={copy.eyebrow} title={copy.title} note={copy.note}>
@@ -26,15 +21,63 @@ export default function AiProviders({ enabled }) {
         <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">Loading…</p>
       ) : null}
 
-      {!ai.loading && ai.payload ? (
+      {ai.forbidden ? (
+        <p className="m-0 text-[0.8rem] text-[color:var(--admin-muted)]">{copy.adminRequired}</p>
+      ) : null}
+
+      {!ai.loading && !ai.forbidden && ai.payload ? (
         <>
           <p className="ai-provider-source">
             {ai.payload.source === "admin" ? copy.sourceAdmin : copy.sourceEnv}
           </p>
 
+          <p className="ai-provider-choose-label">{copy.primaryLabel}</p>
+          <div className="ai-provider-toggle" role="radiogroup" aria-label={copy.primaryLabel}>
+            {ai.configuredOptions.map((option) => {
+              const selected = ai.primary === option.name;
+              return (
+                <button
+                  key={option.name}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  className={["ai-provider-toggle-btn", selected ? "is-selected" : ""]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={() => ai.choosePrimary(option.name)}
+                >
+                  <strong>{option.label}</strong>
+                  <span>{option.model}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="ai-provider-controls">
+            <label>
+              {copy.fallbackLabel}
+              <select
+                value={ai.fallback || ""}
+                onChange={(event) => ai.setFallback(event.target.value)}
+              >
+                <option value="">{copy.noneFallback}</option>
+                {ai.configuredOptions
+                  .filter((option) => option.name !== ai.primary)
+                  .map((option) => (
+                    <option key={option.name} value={option.name}>
+                      {option.label}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
+
           <ul className="ai-provider-options">
             {(ai.payload.options || []).map((option) => (
-              <li key={option.name} className={`ai-provider-option ai-provider-option--${statusTone(option)}`}>
+              <li
+                key={option.name}
+                className={`ai-provider-option ai-provider-option--${statusTone(option)}`}
+              >
                 <div>
                   <strong>{option.label}</strong>
                   <p>{option.model}</p>
@@ -50,44 +93,10 @@ export default function AiProviders({ enabled }) {
             ))}
           </ul>
 
-          <div className="ai-provider-controls">
-            <label>
-              {copy.primaryLabel}
-              <select
-                value={ai.primary}
-                onChange={(event) => {
-                  const next = event.target.value;
-                  ai.setPrimary(next);
-                  if (ai.fallback === next) ai.setFallback("");
-                }}
-              >
-                {ai.configuredOptions.map((option) => (
-                  <option key={option.name} value={option.name}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              {copy.fallbackLabel}
-              <select value={ai.fallback || ""} onChange={(event) => ai.setFallback(event.target.value)}>
-                <option value="">{copy.noneFallback}</option>
-                {ai.configuredOptions
-                  .filter((option) => option.name !== ai.primary)
-                  .map((option) => (
-                    <option key={option.name} value={option.name}>
-                      {option.label}
-                    </option>
-                  ))}
-              </select>
-            </label>
-          </div>
-
           <button
             type="button"
             className="settings-submit"
-            disabled={ai.saving || !ai.primary}
+            disabled={ai.saving || !ai.primary || !dirty}
             onClick={ai.save}
           >
             {ai.saving ? copy.savingLabel : copy.saveLabel}

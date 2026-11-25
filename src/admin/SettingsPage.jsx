@@ -1,6 +1,7 @@
 import AdminLayout from "../components/layout/AdminLayout";
 import { SETTINGS } from "../content/settings";
 import { WORKSPACE_SECTIONS } from "../content/site";
+import AiProviders from "./settings/AiProviders";
 import PasswordForm from "./settings/PasswordForm";
 import ProfileForm from "./settings/ProfileForm";
 
@@ -15,6 +16,9 @@ export default function SettingsPage() {
       <section className="settings-grid">
         <ProfileForm />
         <PasswordForm />
+      </section>
+      <section className="settings-grid settings-grid--tools">
+        <AiProviders />
       </section>
     </AdminLayout>
   );

@@ -3,6 +3,7 @@ import { useSessionUser } from "../auth/SessionContext";
 import { ADMIN_ROLE } from "../config/auth";
 import { SETTINGS } from "../content/settings";
 import { WORKSPACE_SECTIONS } from "../content/site";
+import AiProviders from "./settings/AiProviders";
 import CollectionTools from "./settings/CollectionTools";
 
 export default function CollectionToolsPage() {
@@ -19,6 +20,7 @@ export default function CollectionToolsPage() {
     >
       <section className="settings-grid settings-grid--tools">
         <CollectionTools enabled={isAdmin} />
+        <AiProviders enabled={isAdmin} />
       </section>
     </AdminLayout>
   );

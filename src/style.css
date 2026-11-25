@@ -1863,6 +1863,72 @@ a {
   font-size: 0.78rem;
   font-weight: 600;
 }
+.ai-provider-source {
+  color: var(--admin-muted, var(--color-muted));
+  font-size: 0.76rem;
+  margin: 0 0 0.85rem;
+}
+.ai-provider-options {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.ai-provider-option {
+  align-items: center;
+  border: 1px solid var(--admin-rule, var(--color-border-card-soft));
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 0.7rem 0.85rem;
+}
+.ai-provider-option strong {
+  color: var(--admin-ink, var(--color-heading));
+  display: block;
+  font-size: 0.86rem;
+}
+.ai-provider-option p {
+  color: var(--admin-muted, var(--color-muted));
+  font-size: 0.72rem;
+  margin: 0.2rem 0 0;
+}
+.ai-provider-option span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ai-provider-option--ok span {
+  color: #1f6b3a;
+}
+.ai-provider-option--bad span {
+  color: #a12828;
+}
+.ai-provider-option--missing span {
+  color: var(--admin-muted, var(--color-muted));
+}
+.ai-provider-controls {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  margin-bottom: 0.95rem;
+}
+.ai-provider-controls label {
+  color: var(--admin-ink, var(--color-heading));
+  display: grid;
+  font-size: 0.75rem;
+  font-weight: 700;
+  gap: 0.4rem;
+}
+.ai-provider-controls select {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-control, #c5d0da);
+  border-radius: 5px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.7rem 0.8rem;
+}
 .drug-list-meta {
   align-items: baseline;
   color: var(--admin-muted, var(--color-muted));

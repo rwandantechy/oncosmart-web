@@ -22,6 +22,7 @@ export const ANCHOR_IDS = {
   assistantScope: "assistant-scope",
   accountSettings: "account-settings",
   collectionTools: "collection-tools",
+  aiProviders: "ai-providers",
   drugList: "drug-list",
 };
 
